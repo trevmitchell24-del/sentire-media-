@@ -9,9 +9,12 @@
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" as="image" href="uploads/1_4.2.1.jpg" fetchpriority="high">
+<link rel="preconnect" href="https://player.vimeo.com">
+<link rel="preconnect" href="https://f.vimeocdn.com" crossorigin="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Archivo:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Archivo:wght@300;400;500&amp;family=Jost:wght@200;300;400;500&amp;display=swap" rel="stylesheet">
 <style>
   html { background: #0B0B0A; scroll-behavior: smooth; }
   body { margin: 0; background: #0B0B0A; color: #EDE9E2; font-family: "Archivo", "Helvetica Neue", Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
@@ -24,10 +27,23 @@
   @keyframes scrollcue { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
   @keyframes loaderLogoIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
   @keyframes loaderBarFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes reelIn { to { opacity: 1; } }
+  @keyframes letterPop {
+    0%   { opacity: 0; transform: translateY(0.5em) scale(0.7); filter: blur(6px); }
+    55%  { opacity: 1; transform: translateY(-0.12em) scale(1.14); filter: blur(0); }
+    78%  { transform: translateY(0.02em) scale(0.97); }
+    100% { opacity: 1; transform: none; filter: blur(0); }
+  }
+  @keyframes logoPop {
+    0% { opacity: 0; transform: translateY(22px) scale(0.92); }
+    60% { opacity: 1; transform: translateY(-4px) scale(1.02); }
+    100% { opacity: 1; transform: none; }
+  }
+  @keyframes revealUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: none; } }
   @keyframes loaderOut { 0%, 88% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; } }
-  [data-loader] { animation: loaderOut 2960ms cubic-bezier(.7,0,.3,1) forwards; }
-  [data-loader-logo] { animation: loaderLogoIn 1400ms cubic-bezier(.2,.7,.2,1) forwards; }
-  [data-loader-bar] { animation: loaderBarFill 2000ms cubic-bezier(.33,0,.15,1) forwards; }
+  [data-loader] { animation: loaderOut 1150ms cubic-bezier(.7,0,.3,1) forwards; }
+  [data-loader-logo] { animation: loaderLogoIn 620ms cubic-bezier(.2,.7,.2,1) forwards; }
+  [data-loader-bar] { animation: loaderBarFill 900ms cubic-bezier(.33,0,.15,1) forwards; }
   @media (max-width: 820px) {
     [data-m="band"] { grid-template-columns: 1fr !important; align-content: center; }
     [data-m="band"] p { display: none; }
@@ -46,7 +62,7 @@
 
   <sc-if value="{{ showLoader }}" hint-placeholder-val="{{ true }}">
   <div data-loader="1" style="position:fixed;inset:0;z-index:900;background:#0B0B0A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;pointer-events:none">
-    <img data-loader-logo="1" src="uploads/logo-mark.png" alt="Sentire Media" style="width:min(300px,58vw);height:auto" />
+    <div data-loader-logo="1" style="font-family:Jost,Archivo,sans-serif;font-weight:400;font-size:clamp(17px,4.4vw,26px);letter-spacing:0.42em;text-transform:uppercase;color:#EDE9E2;white-space:nowrap">Sentire Studios<sup style="font-size:0.42em;letter-spacing:0;vertical-align:super;margin-left:0.15em">©</sup></div>
     <div style="position:relative;width:min(300px,58vw);height:1px;background:rgba(237,233,226,0.16);overflow:hidden">
       <div data-loader-bar="1" style="position:absolute;inset:0;background:#B79A72;transform:scaleX(0);transform-origin:left"></div>
     </div>
@@ -55,8 +71,13 @@
   </sc-if>
 
   <header style="position:fixed;top:14px;left:14px;right:14px;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:clamp(12px,3vw,20px) clamp(16px,4vw,34px);border-top-left-radius:28px;border-top-right-radius:28px;background:linear-gradient(#0B0B0A99,#0B0B0A00)">
-    <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:14px">
-      <img src="uploads/logo-mark.png" alt="Sentire Media" style="width:clamp(120px,32vw,170px);height:auto;display:block;opacity:.95">
+    <a href="#" onClick="{{ goHome }}" onMouseEnter="{{ wmOn }}" onMouseLeave="{{ wmOff }}" style="display:flex;align-items:center;gap:14px;perspective:520px">
+      <span style="display:flex;align-items:baseline;font-family:Jost,Archivo,sans-serif;font-weight:400;font-size:clamp(13px,3.2vw,17px);letter-spacing:0.4em;text-transform:uppercase;color:#EDE9E2;opacity:.95;white-space:nowrap">
+        <sc-for list="{{ wordmark }}" as="l" hint-placeholder-count="15">
+          <span style="display:inline-block;width:{{ l.width }};transform-style:preserve-3d;transition:transform 620ms cubic-bezier(.2,.9,.25,1),color 620ms ease;transition-delay:{{ l.delay }};transform:{{ l.transform }};color:{{ l.color }}">{{ l.ch }}</span>
+        </sc-for>
+        <sup style="font-size:0.42em;line-height:1;letter-spacing:0;margin-left:0.15em;display:block;align-self:flex-start;transition:transform 700ms cubic-bezier(.2,.9,.25,1) 520ms,color 620ms ease 520ms;transform:{{ wmMarkTransform }};color:{{ wmMarkColor }}">©</sup>
+      </span>
     </a>
     <button onClick="{{ toggleMenu }}" aria-label="Menu" style="display:{{ burgerDisplay }};flex-direction:column;justify-content:center;gap:6px;width:48px;height:48px;padding:0;border:0;background:transparent;cursor:pointer">
       <span style="display:block;width:26px;height:1px;background:#EDE9E2;transition:transform .4s cubic-bezier(.2,.8,.2,1);transform:{{ burgerTop }}"></span>
@@ -84,13 +105,15 @@
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
   <main>
     <section style="position:relative;height:calc(100svh - 28px);min-height:520px;margin:clamp(8px,2vw,14px);border-radius:clamp(16px,2.5vw,28px);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end">
-      <div style="position:absolute;inset:0;background:repeating-linear-gradient(115deg,#131211 0 14px,#171614 14px 28px);animation:drift 26s ease-in-out infinite alternate"></div>
-      <iframe src="https://player.vimeo.com/video/1216295803?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;dnt=1" title="Showreel" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100vw;height:56.25vw;min-height:100%;min-width:177.78vh;border:0;pointer-events:none"></iframe>
+      <div style="position:absolute;inset:0;background-image:url('uploads/1_4.2.1.jpg');background-size:cover;background-position:center;animation:drift 26s ease-in-out infinite alternate"></div>
+      <sc-if value="{{ mountHeroReel }}">
+      <iframe data-heroreel="1" src="https://player.vimeo.com/video/1216295803?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;dnt=1&amp;quality=auto" title="Showreel" frameborder="0" loading="eager" allow="autoplay; fullscreen" allowfullscreen="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100vw;height:56.25vw;min-height:100%;min-width:177.78vh;border:0;pointer-events:none;opacity:0;animation:reelIn 900ms ease forwards"></iframe>
+      </sc-if>
       <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%,rgba(11,11,10,0) 0%,rgba(11,11,10,0.55) 60%,#0B0B0A 100%)"></div>
       
       <div style="position:relative;padding:0 clamp(20px,5vw,40px) clamp(34px,6vw,56px);display:flex;flex-direction:column;gap:clamp(20px,3.5vw,34px)">
         <div style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(237,233,226,0.9);text-shadow:0 1px 18px rgba(11,11,10,0.9)">Brand storytelling — Los Angeles</div>
-        <h1 style="margin:0;font-size:clamp(26px,4vw,62px);line-height:0.98;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Films for places<br>worth <span style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:-0.01em;font-weight:400">feeling</span></h1>
+        <h1 style="margin:0;font-size:clamp(26px,4vw,62px);line-height:1.28;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Films for places<br>worth <span style="display:inline-block;font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:-0.01em;font-weight:400"><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1250ms forwards">f</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1320ms forwards">e</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1390ms forwards">e</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1460ms forwards">l</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1530ms forwards">i</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1600ms forwards">n</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1670ms forwards">g</span></span></h1>
         <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:48px;flex-wrap:wrap">
           <div style="margin:0;max-width:38ch;font-size:15px;line-height:1.7;color:rgba(237,233,226,0.6)"><p data-pm-slice="1 1 []">Lifestyle Media &amp; Luxury Hospitality&nbsp;</p></div>
           <div data-m="scroll" style="display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.45)">
@@ -107,25 +130,27 @@
     <section data-reveal="1" style="padding:0 0 130px;overflow:hidden">
       <div style="padding:0 clamp(20px,5vw,40px) clamp(38px,6vw,64px);font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.55);text-align:center">Trusted by</div>
       <div style="padding:0 clamp(20px,5vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(34px,5vw,56px) clamp(24px,4vw,40px);align-items:center;justify-items:center">
-        <sc-for list="{{ clients }}" as="c" hint-placeholder-count="8">
-          <sc-if value="{{ c.hasLogo }}">
-            <div role="img" aria-label="{{ c.name }}" style="width:100%;max-width:140px;height:38px;background-image:{{ c.logoCss }};background-size:contain;background-position:center;background-repeat:no-repeat;opacity:0.78"></div>
-          </sc-if>
-          <sc-if value="{{ c.noLogo }}">
-            <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
-              <sc-if value="{{ c.hasMark }}">
-                <div style="width:26px;height:38px;background-image:{{ c.markCss }};background-size:contain;background-position:center;background-repeat:no-repeat;opacity:0.78"></div>
-              </sc-if>
-              <div style="font-size:clamp(14px,1.4vw,19px);font-weight:300;letter-spacing:0.1em;text-transform:uppercase;color:rgba(237,233,226,0.72);text-align:center">{{ c.name }}</div>
-            </div>
-          </sc-if>
+        <sc-for list="{{ clients }}" as="c" hint-placeholder-count="5">
+          <div data-reveal="1" data-reveal-index="{{ c.key }}" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:140px;height:38px">
+            <sc-if value="{{ c.hasLogo }}">
+              <div role="img" aria-label="{{ c.name }}" style="width:100%;height:38px;background-image:{{ c.logoCss }};background-size:contain;background-position:center;background-repeat:no-repeat;opacity:0.78"></div>
+            </sc-if>
+            <sc-if value="{{ c.noLogo }}">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+                <sc-if value="{{ c.hasMark }}">
+                  <div style="width:22px;height:26px;background-image:{{ c.markCss }};background-size:contain;background-position:center;background-repeat:no-repeat;opacity:0.78"></div>
+                </sc-if>
+                <div style="font-size:14px;font-weight:300;letter-spacing:0.1em;text-transform:uppercase;color:rgba(237,233,226,0.72);text-align:center;white-space:nowrap">{{ c.name }}</div>
+              </div>
+            </sc-if>
+          </div>
         </sc-for>
       </div>
     </section>
     </sc-if>
 
     <section style="padding:0 clamp(20px,5vw,40px) 40px;display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap">
-      <h2 data-reveal="1" style="margin:0;font-size:clamp(34px,6vw,96px);line-height:0.92;font-weight:300;letter-spacing:-0.025em;text-transform:uppercase">Selected<br><span style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none">work</span></h2>
+      <h2 data-reveal="1" style="margin:0;font-size:clamp(26px,4vw,62px);line-height:0.98;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Selected<br><span style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none">work</span></h2>
       <a href="#" onClick="{{ goWork }}" style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.6);border-bottom:1px solid rgba(237,233,226,0.25);padding-bottom:6px">All projects</a>
     </section>
 
@@ -144,7 +169,7 @@
           <div data-m="band" style="position:absolute;inset:0;padding:0 clamp(20px,5vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,60px);align-items:center">
             <div style="display:flex;flex-direction:column;gap:16px">
               <sc-if value="{{ p.hasLogo }}">
-                <div role="img" aria-label="{{ p.client }}" style="width:100%;max-width:250px;height:56px;background-image:{{ p.logoCss }};background-size:contain;background-position:left center;background-repeat:no-repeat;filter:drop-shadow(0 2px 24px rgba(11,11,10,0.8))"></div>
+                <div role="img" aria-label="{{ p.client }}" style="width:100%;max-width:{{ p.logoBandW }};height:{{ p.logoBandH }};background-image:{{ p.logoCss }};background-size:contain;background-position:left center;background-repeat:no-repeat;filter:drop-shadow(0 2px 24px rgba(11,11,10,0.8))"></div>
               </sc-if>
               <sc-if value="{{ p.noLogo }}">
                 <div style="display:flex;align-items:center;gap:18px">
@@ -165,7 +190,7 @@
 
     <section data-reveal="1" style="padding:clamp(80px,12vw,130px) clamp(20px,5vw,40px);border-top:1px solid rgba(237,233,226,0.08);display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(34px,6vw,80px)">
       <div style="font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">How we work</div>
-      <div style="display:flex;flex-direction:column">
+      <div style="grid-column:span 2;display:flex;flex-direction:column">
         <sc-for list="{{ pillars }}" as="s" hint-placeholder-count="3">
           <div data-m="pillar" style="display:grid;grid-template-columns:56px 1fr 1fr;gap:clamp(16px,3vw,40px);padding:clamp(30px,5vw,44px) 0;border-top:1px solid rgba(237,233,226,0.1)">
             <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:rgba(237,233,226,0.4);padding-top:8px">{{ s.num }}</div>
@@ -184,7 +209,7 @@
     <sc-if value="{{ showGear }}" hint-placeholder-val="{{ true }}">
     <section data-reveal="1" style="padding:0 clamp(20px,5vw,40px) clamp(80px,12vw,130px);display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(30px,6vw,80px)">
       <div style="font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">Kit</div>
-      <div>
+      <div style="grid-column:span 2">
         <p style="margin:0 0 34px;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(22px,2.6vw,34px);line-height:1.35;color:rgba(237,233,226,0.85)">Small crews, cinema sensors, natural light first.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:rgba(237,233,226,0.1)">
           <sc-for list="{{ gear }}" as="g" hint-placeholder-count="4">
@@ -210,10 +235,14 @@
       </div>
     </section>
 
-    <section style="position:relative;padding:clamp(90px,14vw,150px) clamp(20px,5vw,40px) clamp(100px,15vw,160px);border-top:1px solid rgba(237,233,226,0.08);text-align:center">
-      <p style="margin:0 0 30px;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(237,233,226,0.45)">Los Angeles — currently booking Q4 2026</p>
-      <h2 data-reveal="1" style="margin:0;font-size:clamp(26px,4vw,62px);line-height:0.98;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Make people<br><span style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none">feel</span> something</h2>
-      <a href="#" onClick="{{ goContact }}" style="display:inline-block;margin-top:56px;padding:19px 44px;border:1px solid rgba(237,233,226,0.3);border-radius:100px;font-size:11px;letter-spacing:0.26em;text-transform:uppercase" style-hover="background:#EDE9E2;color:#0B0B0A;border-color:#EDE9E2">Start a project</a>
+    <section style="position:relative;overflow:hidden;padding:clamp(110px,17vw,190px) clamp(20px,5vw,40px) clamp(110px,17vw,190px);border-top:1px solid rgba(237,233,226,0.08);text-align:center">
+      <div style="position:absolute;inset:0;background-image:url('uploads/7d14fa0d-0d4c-4859-8960-a9c28d3666b1_sm.avif');background-size:cover;background-position:center"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,10,0.82),rgba(11,11,10,0.62) 45%,rgba(11,11,10,0.88))"></div>
+      <div style="position:relative">
+        <p style="margin:0 0 30px;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(237,233,226,0.7)">Los Angeles — currently booking Q4 2026</p>
+        <h2 data-reveal="1" style="margin:0;font-size:clamp(26px,4vw,62px);line-height:0.98;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase;text-shadow:0 2px 30px rgba(11,11,10,0.7)">Make people<br><span style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none">feel</span> something</h2>
+        <a href="#" onClick="{{ goContact }}" style="display:inline-block;margin-top:56px;padding:19px 44px;border:1px solid rgba(237,233,226,0.45);border-radius:100px;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;backdrop-filter:blur(3px)" style-hover="background:#EDE9E2;color:#0B0B0A;border-color:#EDE9E2">Start a project</a>
+      </div>
     </section>
   </main>
   </sc-if>
@@ -227,7 +256,7 @@
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;padding-top:clamp(28px,5vw,44px)">
       <sc-for list="{{ projects }}" as="p" hint-placeholder-count="7">
-        <a href="#" onClick="{{ p.open }}" onMouseEnter="{{ p.on }}" onMouseLeave="{{ p.off }}" style="position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;text-decoration:none;background:repeating-linear-gradient(115deg,#131211 0 14px,#171614 14px 28px)">
+        <a href="#" onClick="{{ p.open }}" onMouseEnter="{{ p.on }}" onMouseLeave="{{ p.off }}" data-reveal="1" style="position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;text-decoration:none;background:repeating-linear-gradient(115deg,#131211 0 14px,#171614 14px 28px)">
           <div style="position:absolute;inset:0;background-image:{{ p.tileCoverCss }};background-size:cover;background-position:center;transition:transform 1.2s cubic-bezier(.2,.8,.2,1),opacity .8s ease;transform:{{ p.scale }}"></div>
           <sc-if value="{{ p.mounted }}">
             <div style="position:absolute;inset:0;overflow:hidden;transition:opacity 1s ease;opacity:{{ p.filmOpacity }}">
@@ -237,7 +266,7 @@
           <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,10,0.15),rgba(11,11,10,0.05) 45%,rgba(11,11,10,0.7));transition:opacity .7s ease;opacity:{{ p.tileDim }}"></div>
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px">
             <sc-if value="{{ p.hasLogo }}">
-              <div role="img" aria-label="{{ p.client }}" style="width:100%;max-width:190px;height:46px;background-image:{{ p.logoCss }};background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 2px 22px rgba(11,11,10,0.85))"></div>
+              <div role="img" aria-label="{{ p.client }}" style="width:100%;max-width:{{ p.logoTileW }};height:{{ p.logoTileH }};background-image:{{ p.logoCss }};background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 2px 22px rgba(11,11,10,0.85))"></div>
             </sc-if>
             <sc-if value="{{ p.noLogo }}">
               <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
@@ -253,33 +282,6 @@
       </sc-for>
     </div>
   </main>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2px;background:rgba(237,233,226,0.08)">
-    <sc-for list="{{ projects }}" as="p" hint-placeholder-count="9">
-      <a href="#" onClick="{{ p.open }}" onMouseEnter="{{ p.on }}" onMouseLeave="{{ p.off }}" style="position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:repeating-linear-gradient(115deg,#131211 0 14px,#171614 14px 28px)">
-        <div style="position:absolute;inset:0;background-image:{{ p.tileCoverCss }};background-size:cover;background-position:center;transition:transform 1.4s cubic-bezier(.2,.8,.2,1);transform:{{ p.scale }}"></div>
-        <sc-if value="{{ p.mounted }}">
-          <div style="position:absolute;inset:0;overflow:hidden;transition:opacity 1s ease;opacity:{{ p.filmOpacity }}">
-            <iframe src="{{ p.tileEmbed }}" title="{{ p.client }}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;min-width:177.78%;min-height:100%;border:0;pointer-events:none"></iframe>
-          </div>
-        </sc-if>
-        <div style="position:absolute;inset:0;background:radial-gradient(80% 70% at 50% 50%,rgba(11,11,10,0.32),rgba(11,11,10,0.52));transition:opacity .6s ease;opacity:{{ p.tileDim }}"></div>
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px">
-          <sc-if value="{{ p.hasLogo }}">
-            <div role="img" aria-label="{{ p.client }}" style="width:100%;max-width:190px;height:46px;background-image:{{ p.logoCss }};background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 2px 22px rgba(11,11,10,0.85))"></div>
-          </sc-if>
-          <sc-if value="{{ p.noLogo }}">
-            <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
-              <sc-if value="{{ p.hasMark }}">
-                <div style="width:28px;height:40px;background-image:{{ p.markCss }};background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 2px 20px rgba(11,11,10,0.85))"></div>
-              </sc-if>
-              <div style="font-size:clamp(18px,2vw,28px);font-weight:300;letter-spacing:0.16em;text-transform:uppercase;text-shadow:0 2px 26px rgba(11,11,10,0.75)">{{ p.client }}</div>
-            </div>
-          </sc-if>
-          <div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:16px;color:rgba(237,233,226,0.75);text-shadow:0 2px 20px rgba(11,11,10,0.8)">{{ p.title }}</div>
-        </div>
-      </a>
-    </sc-for>
-  </div>
   </sc-if>
 
   <!-- ================= CASE STUDY ================= -->
@@ -320,7 +322,7 @@
     <section style="padding:0 0 8px">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:8px">
         <sc-for list="{{ currentFrames }}" as="f" hint-placeholder-count="0">
-          <div style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#131211">
+          <div data-reveal="1" style="position:relative;aspect-ratio:16/9;overflow:hidden;background:#131211">
             <div style="position:absolute;inset:0;background-image:{{ f.css }};background-size:cover;background-position:center"></div>
           </div>
         </sc-for>
@@ -388,7 +390,7 @@
       <div style="font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">Team</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(28px,4vw,40px)">
         <sc-for list="{{ team }}" as="m" hint-placeholder-count="2">
-          <div style="display:flex;flex-direction:column;gap:16px">
+          <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px">
             <div style="position:relative;aspect-ratio:3/4;overflow:hidden;background:repeating-linear-gradient(115deg,#131211 0 14px,#171614 14px 28px)">
               <div style="position:absolute;inset:0;background-image:{{ m.portrait }};background-size:cover;background-position:center 20%"></div>
             </div>
@@ -410,32 +412,33 @@
       <p style="margin:40px 0 0;max-width:34ch;font-size:16px;line-height:1.7;color:rgba(237,233,226,0.6)">Tell us the feeling you're after. We'll come back within two business days.</p>
       <div style="margin-top:70px;display:flex;flex-direction:column;gap:22px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,233,226,0.5)">
         <a href="mailto:info@sentiremedia.co">info@sentiremedia.co</a>
-        <a href="#">Instagram</a>
+        <a href="https://www.instagram.com/sentiremedia.co" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:9px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"></circle></svg>Instagram</a>
+        <a href="https://www.linkedin.com/in/sentire-media-35a766426/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:9px"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="flex:none"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.3 8.65 22 11 22 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21h-4z"></path></svg>LinkedIn</a>
         <span>Los Angeles — booking Q4 2026</span>
       </div>
     </div>
     <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:34px">
-      <sc-for list="{{ fields }}" as="f" hint-placeholder-count="4">
+      <sc-for list="{{ fields }}" as="f" hint-placeholder-count="3">
         <label style="display:flex;flex-direction:column;gap:12px">
-          <span style="font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.42)">{{ f.label }}</span>
-          <input type="{{ f.type }}" name="{{ f.name }}" required="{{ f.required }}" placeholder="{{ f.ph }}" style="background:transparent;border:0;border-bottom:1px solid rgba(237,233,226,0.2);padding:12px 0;font-family:Archivo,Helvetica,sans-serif;font-size:17px;color:#EDE9E2;outline:none" style-focus="border-color:#B79A72">
+          <span style="font-size:14px;letter-spacing:0.06em;color:rgba(237,233,226,0.85)">{{ f.label }}</span>
+          <input type="{{ f.type }}" name="{{ f.name }}" required="{{ f.required }}" style="background:transparent;border:1px solid rgba(237,233,226,0.85);border-radius:100px;padding:17px 26px;font-family:Archivo,Helvetica,sans-serif;font-size:16px;color:#EDE9E2;outline:none;transition:border-color .3s ease" style-focus="border-color:#B79A72">
         </label>
       </sc-for>
-      <label style="display:flex;flex-direction:column;gap:12px">
-        <span style="font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.42)">The brief</span>
-        <textarea rows="4" name="brief" placeholder="What should people feel?" style="background:transparent;border:0;border-bottom:1px solid rgba(237,233,226,0.2);padding:12px 0;font-family:Archivo,Helvetica,sans-serif;font-size:17px;color:#EDE9E2;outline:none;resize:vertical" style-focus="border-color:#B79A72"></textarea>
+      <label style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+        <span style="font-size:17px;font-weight:400;letter-spacing:0.02em;color:#EDE9E2">Message</span>
+        <textarea rows="6" name="message" style="background:transparent;border:1px solid rgba(237,233,226,0.85);border-radius:22px;padding:20px 26px;font-family:Archivo,Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#EDE9E2;outline:none;resize:vertical;transition:border-color .3s ease" style-focus="border-color:#B79A72"></textarea>
       </label>
       <sc-if value="{{ hasError }}">
         <div style="font-size:13px;line-height:1.6;color:#B79A72">{{ statusMsg }}</div>
       </sc-if>
-      <button type="submit" style="align-self:flex-start;margin-top:14px;padding:19px 44px;border:1px solid rgba(237,233,226,0.3);border-radius:100px;background:transparent;color:#EDE9E2;font-family:Archivo,Helvetica,sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;cursor:pointer" style-hover="background:#EDE9E2;color:#0B0B0A">{{ submitLabel }}</button>
+      <button type="submit" style="align-self:flex-start;margin-top:20px;padding:17px 40px;border:1px solid rgba(237,233,226,0.9);border-radius:100px;background:transparent;color:#EDE9E2;font-family:Archivo,Helvetica,sans-serif;font-size:15px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background .3s ease,color .3s ease" style-hover="background:#EDE9E2;color:#0B0B0A">{{ submitLabel }}</button>
     </form>
   </main>
   </sc-if>
 
   <footer style="padding:clamp(52px,8vw,70px) clamp(20px,5vw,40px) 46px;border-top:1px solid rgba(237,233,226,0.09);display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(34px,5vw,50px);align-items:start">
     <div style="display:flex;flex-direction:column;gap:22px">
-      <img src="uploads/logo-mark.png" alt="Sentire Media" style="width:150px;height:auto;opacity:.85">
+      <span style="font-family:Jost,Archivo,sans-serif;font-weight:400;font-size:16px;letter-spacing:0.38em;text-transform:uppercase;color:#EDE9E2;opacity:.85;white-space:nowrap">Sentire Studios<sup style="font-size:0.42em;letter-spacing:0;vertical-align:super;margin-left:0.15em">©</sup></span>
       <div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:19px;color:rgba(237,233,226,0.55)">to feel</div>
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase">
@@ -473,10 +476,22 @@
           <span style="display:block;height:15px;line-height:15px;color:#B79A72">info@sentiremedia.co</span>
         </span>
       </a>
-      <a href="#" onMouseEnter="{{ h.insta.on }}" onMouseLeave="{{ h.insta.off }}" style="display:block;overflow:hidden;height:15px;width:fit-content">
-        <span style="display:block;transition:transform .55s cubic-bezier(.16,.84,.24,1);transform:translateY({{ h.insta.y }})">
-          <span style="display:block;height:15px;line-height:15px">Instagram</span>
-          <span style="display:block;height:15px;line-height:15px;color:#B79A72">Instagram</span>
+      <a href="https://www.instagram.com/sentiremedia.co" target="_blank" rel="noopener noreferrer" onMouseEnter="{{ h.insta.on }}" onMouseLeave="{{ h.insta.off }}" style="display:flex;align-items:center;gap:9px;width:fit-content">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+        <span style="display:block;overflow:hidden;height:15px">
+          <span style="display:block;transition:transform .55s cubic-bezier(.16,.84,.24,1);transform:translateY({{ h.insta.y }})">
+            <span style="display:block;height:15px;line-height:15px">Instagram</span>
+            <span style="display:block;height:15px;line-height:15px;color:#B79A72">Instagram</span>
+          </span>
+        </span>
+      </a>
+      <a href="https://www.linkedin.com/in/sentire-media-35a766426/" target="_blank" rel="noopener noreferrer" onMouseEnter="{{ h.li.on }}" onMouseLeave="{{ h.li.off }}" style="display:flex;align-items:center;gap:9px;width:fit-content">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="flex:none"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.3 8.65 22 11 22 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21h-4z"></path></svg>
+        <span style="display:block;overflow:hidden;height:15px">
+          <span style="display:block;transition:transform .55s cubic-bezier(.16,.84,.24,1);transform:translateY({{ h.li.y }})">
+            <span style="display:block;height:15px;line-height:15px">LinkedIn</span>
+            <span style="display:block;height:15px;line-height:15px;color:#B79A72">LinkedIn</span>
+          </span>
         </span>
       </a>
       <span style="color:rgba(237,233,226,0.35)">© 2026 Sentire Media</span>
@@ -487,41 +502,43 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;workLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Stacked index&quot;,&quot;Two-column grid&quot;],&quot;default&quot;:&quot;Stacked index&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Work page&quot;},&quot;showTrustedBy&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Home&quot;},&quot;showGear&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Home&quot;}}">
 const PROJECTS = [
-  { num: "01", client: "Vitality", title: "Every Morning Counts", tags: "Brand Film", year: "2026", slot: "HERO FRAME — 16:9",
-    blurb: "We spent three mornings inside the routine to build a brand film about the hours before the city wakes.",
-    body: "A wellness brand with no shortage of product footage and no sense of place. We spent three mornings inside the routine instead of around it — the first pour, the last stretch, the light before the city wakes. One 90-second film, six vertical cutdowns.",
-    credits: [{k:"Client",v:"Vitality"},{k:"Deliverables",v:"Film + 6 cutdowns"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
+  { num: "01", client: "Vitality", title: "The Island Edit", tags: "Social Campaign", year: "2026", slot: "HERO FRAME — 16:9",
+    cover: "uploads/web-vitality-cover.jpg",
+    blurb: "Launch content for The Island Edit. Warm, sun-soaked visuals built to carry a beach-getaway concept across Instagram.",
+    body: "We partnered with Vitality on the launch campaign for The Island Edit, the second collection in their ongoing collaboration with BrüMate. The drop called for content that matched the collection's beach-getaway energy — warm, sun-soaked visuals that could carry the \"everyday feels like a getaway\" concept across Instagram.",
+    credits: [{k:"Client",v:"Vitality × BrüMate"},{k:"Campaign",v:"The Island Edit"},{k:"Deliverables",v:"Social campaign content"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
   { num: "02", client: "Kérastase", title: "Ritual", tags: "Campaign", year: "2026", slot: "HERO FRAME — 16:9",
-    blurb: "A campaign for L'Oréal's Kérastase that treats haircare as ceremony — shot in one suite with a two-person crew.",
+    blurb: "A campaign for L'Oréal's Kérastase that treats haircare as ceremony, shot in one suite with a two-person crew.",
     body: "For L'Oréal's Kérastase we treated haircare as ceremony: slow hands, warm water, close sound. Shot in a single suite over two days with a two-person crew so the talent never felt performed at.",
     credits: [{k:"Client",v:"L'Oréal — Kérastase"},{k:"Deliverables",v:"TVC + stills"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
   { num: "03", client: "Dialed Labs", title: "Sea Moss Gummies", tags: "Social Content", year: "2025", slot: "HERO FRAME — 16:9",
     vimeo: "1216223305",
     cover: "uploads/sea moss_4.9.3.jpg",
-    blurb: "A premium wellness brand — social content for their Sea Moss Gummies launch, built on natural benefits and superior quality.",
+    blurb: "Social content for a premium wellness brand's Sea Moss Gummies launch, built on natural benefits and superior quality.",
     body: "Dialed Labs is a premium wellness brand delivering clean, effective supplements for a healthy lifestyle. We created engaging social media content for their Sea Moss Gummies launch, showcasing the product's natural benefits and superior quality through dynamic visuals and compelling storytelling that captures attention and drives engagement.",
     credits: [{k:"Client",v:"Dialed Labs"},{k:"Deliverables",v:"Social media content"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
   { num: "04", client: "Hotel Joaquin", title: "Laguna Beach", tags: "Hospitality", year: "2025", slot: "HERO FRAME — 16:9",
     vimeo: "1215936448",
     cover: "uploads/laguna_3.3.1.jpg",
     frames: ["1_4.2.1","2_3.4.1","3_3.6.1","4_4.5.1","5_6.1.1","6_5.3.1","7_4.9.1","8_5.14.1","laguna_3.3.1-9c1a6741"],
-    blurb: "A coastal escape tucked into the cliffs of Laguna Beach — sun warmed, effortlessly elegant, alive with the rhythm of the Pacific.",
+    blurb: "A coastal escape tucked into the cliffs of Laguna Beach. Sun warmed, effortlessly elegant, alive with the rhythm of the Pacific.",
     body: "For this project, we captured the soul of Hotel Joaquin, a coastal escape tucked into the cliffs of Laguna Beach. Our goal wasn't just to showcase the property's beauty, but to convey the feeling it creates. Sun warmed, effortlessly elegant, and alive with the rhythm of the Pacific.",
     credits: [{k:"Client",v:"Hotel Joaquin"},{k:"Deliverables",v:"Film + reels"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
   { num: "05", client: "Paradise Ranch Inn", title: "Mountains, Mirrors, Stillness", tags: "Hospitality", year: "2024", slot: "HERO FRAME — 16:9",
     vimeo: "1216003301",
     cover: "uploads/Still 2026-08-06 122734_6.1.1.jpg",
     frames: ["Still 2026-08-06 122734_6.1.1","Still 2026-08-06 122813_3.2.1","Still 2026-08-06 122713_4.4.1","Still 2026-08-06 123247_5.8.1","Still 2026-08-06 122746_7.1.1","Still 2026-08-06 122823_3.4.1","Still 2026-08-06 123129_6.9.1"],
-    blurb: "A luxury eco-retreat at the edge of Sequoia National Park — mirrored glass houses, glamping tents, and total stillness.",
+    blurb: "A luxury eco-retreat at the edge of Sequoia National Park. Mirrored glass houses, glamping tents, and total stillness.",
     body: "A luxury eco-retreat tucked at the edge of Sequoia National Park, where mirrored glass OOD houses and glamping tents blend into the wild. Featured in Architectural Digest, Dwell, and Travel + Leisure. We captured the property's off-grid design and natural surroundings for their brand content — mountains, mirrors, and total stillness.",
     credits: [{k:"Client",v:"Paradise Ranch Inn"},{k:"Location",v:"Three Rivers, CA"},{k:"Deliverables",v:"Brand film + stills"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
   { num: "06", client: "Hawk & Mesa", title: "Desert Quiet", tags: "Hospitality", year: "2024", slot: "HERO FRAME — 16:9",
     vimeo: "1216286523",
     cover: "uploads/web-DJI_20231103101754_0055_D.jpg",
-    blurb: "A desert retreat between Joshua Tree and Pioneertown — calm, connected, and quietly luxurious.",
+    blurb: "A desert retreat between Joshua Tree and Pioneertown. Calm, connected, and quietly luxurious.",
     body: "For this project, we captured the essence of Hawk & Mesa, a desert retreat nestled between Joshua Tree and Pioneertown. Our goal wasn't just to showcase the property's beauty, but to convey the feeling it creates: calm, connected, and quietly luxurious.",
     credits: [{k:"Client",v:"Hawk & Mesa"},{k:"Deliverables",v:"Brand film + stills"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
   { num: "07", client: "Encinitas Oceanfront Estate", title: "Coastal Living", tags: "Real Estate", year: "2023", slot: "HERO FRAME — 16:9",
+    cover: "uploads/web-encinitas-cover.jpg",
     vimeo: "1216289135",
     body: "Modern oceanfront estate in Encinitas, California. Our cinematic video immerses viewers in the coastal lifestyle, showcasing sweeping ocean views, refined interiors, and exclusive amenities that define this exceptional property.",
     credits: [{k:"Client",v:"Encinitas Oceanfront Estate"},{k:"Location",v:"Encinitas, CA"},{k:"Deliverables",v:"Property film + stills"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] }
@@ -529,14 +546,21 @@ const PROJECTS = [
 
 // Paste your Formspree endpoint here after creating a form at formspree.io
 // e.g. "https://formspree.io/f/xdorwabc"
+const STUDIO_EMAIL = "info@sentiremedia.co";
+
+// Set to "" to skip the service entirely and always open the visitor's mail app.
 const FORM_ENDPOINT = "https://formspree.io/f/xrpzbyrr";
 
 const LOGOS = {
   "Vitality": "uploads/logo-vitality-white.png",
   "Dialed Labs": "uploads/logo-dialedlabs.png",
   "Hotel Joaquin": "uploads/idEggxd8n7_1786067711228.png",
-  "Kérastase": "uploads/Kerastase_New_logo-wht.png"
+  "Kérastase": "uploads/Kerastase_New_logo-wht.png",
+  "Hawk & Mesa": "uploads/logo-hawkmesa-white.png"
 };
+
+// stacked/badge logos need a taller box than the wide wordmarks
+const TALL_LOGOS = { "Hawk & Mesa": true };
 
 // glyph-only marks: shown alongside the client name, never instead of it
 const MARKS = { "Paradise Ranch Inn": "uploads/logo-paradise-white.png" };
@@ -558,17 +582,44 @@ class Component extends DCLogic {
     };
   }
 
+  // Scroll reveals: CSS-animation driven (survives re-render), armed by IntersectionObserver
+  // with a scroll/geometry fallback so an element can never be left hidden.
   observe() {
+    if (!this._io && typeof IntersectionObserver !== "undefined") {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => { if (en.isIntersecting) this.reveal(en.target); });
+      }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
+    }
+    const limit = window.innerHeight * 0.92;
     document.querySelectorAll("[data-reveal]").forEach((el) => {
-      if (el.style.opacity !== "1") { el.style.opacity = "1"; el.style.transform = "none"; }
+      if (el.dataset.shown === "1") return;
+      if (el.dataset.armed !== "1") {
+        el.dataset.armed = "1";
+        el.style.opacity = "0";
+        el.style.willChange = "opacity, transform";
+        if (this._io) this._io.observe(el);
+      }
+      const r = el.getBoundingClientRect();
+      if (r.top < limit && r.bottom > -200) this.reveal(el);
     });
+  }
+
+  reveal(el) {
+    if (el.dataset.shown === "1") return;
+    el.dataset.shown = "1";
+    if (this._io) this._io.unobserve(el);
+    const i = Number(el.dataset.revealIndex || 0);
+    const wave = el.hasAttribute("data-reveal-index");
+    el.style.animation = wave
+      ? "logoPop 800ms cubic-bezier(.2,.9,.25,1) " + (i * 130) + "ms forwards"
+      : "revealUp 1s cubic-bezier(.2,.8,.2,1) " + (i * 70) + "ms forwards";
   }
 
   // The logo fade, bar fill and panel exit are CSS keyframes (see helmet) so they survive
   // the runtime's detach/re-attach. JS only drives the counter, re-querying every frame.
   runLoader() {
     if (Component._loaderStart == null) Component._loaderStart = performance.now();
-    const DUR = 2000, LIFE = 3100;
+    const DUR = 900, LIFE = 1150;
     const elapsed = () => performance.now() - Component._loaderStart;
 
     // Unmount the panel from the render tree — a re-render can then never resurrect it.
@@ -595,25 +646,21 @@ class Component extends DCLogic {
 
   componentDidMount() {
     this.runLoader();
-    this.observe();
+    // hero reel mounts after first paint so it never blocks the still or the layout
+    const delay = window.innerWidth <= 820 ? 1800 : 900;
+    this._reelT = setTimeout(() => this.setState({ heroReel: true }), delay);
     this.measure();
-    setTimeout(this.measure, 60);
     setTimeout(this.measure, 400);
     window.addEventListener("resize", this.measure);
     document.addEventListener("scroll", this.measure, { passive: true, capture: true });
-    requestAnimationFrame(() => requestAnimationFrame(this.measure));
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(this.measure);
   }
-  componentDidUpdate() {
-    this.observe();
-    this.syncPill();
-    this.syncReel();
-    requestAnimationFrame(() => { this.syncPill(); });
-    setTimeout(() => this.syncPill(), 120);
-  }
+  componentDidUpdate() { this.measure(); }
   componentWillUnmount() {
     window.removeEventListener("resize", this.measure);
     document.removeEventListener("scroll", this.measure, true);
+    if (this._frame) cancelAnimationFrame(this._frame);
+    clearTimeout(this._reelT);
   }
 
   _items = {};
@@ -626,9 +673,15 @@ class Component extends DCLogic {
 
   syncReel = () => {
     document.querySelectorAll("[data-reel]").forEach((v) => {
-      v.muted = true; v.loop = true; v.defaultMuted = true; v.volume = 0;
-      v.setAttribute("muted", "");
-      if (v.paused) v.play().catch(() => {});
+      if (v.dataset.reelInit !== "1") {          // configure once per node, not per frame
+        v.dataset.reelInit = "1";
+        v.muted = true; v.loop = true; v.defaultMuted = true; v.volume = 0;
+        v.setAttribute("muted", "");
+      }
+      if (v.paused && !v._playPending) {
+        v._playPending = true;
+        v.play().catch(() => {}).finally(() => { v._playPending = false; });
+      }
     });
   };
 
@@ -637,7 +690,19 @@ class Component extends DCLogic {
     if (m !== this.state.isMobile) this.setState({ isMobile: m, menuOpen: false });
   };
 
-  measure = () => { this.observe(); this.syncPill(); this.syncReel(); this.checkViewport(); };
+  // Single rAF-coalesced pass: at most one measurement per frame, no matter how many
+  // scroll events or renders fire. componentDidUpdate routes here too, so a render can
+  // never synchronously trigger another measure/render cycle.
+  measure = () => {
+    if (this._frame) return;
+    this._frame = requestAnimationFrame(() => {
+      this._frame = null;
+      this.observe();
+      this.syncPill();
+      this.syncReel();
+      this.checkViewport();
+    });
+  };
 
   pageNavKey() {
     const p = this.state.page;
@@ -689,6 +754,10 @@ class Component extends DCLogic {
       hasLogo: !!LOGOS[p.client],
       noLogo: !LOGOS[p.client],
       logoCss: LOGOS[p.client] ? 'url("' + LOGOS[p.client] + '")' : "none",
+      logoTileW: TALL_LOGOS[p.client] ? "120px" : "190px",
+      logoTileH: TALL_LOGOS[p.client] ? "104px" : "46px",
+      logoBandW: TALL_LOGOS[p.client] ? "150px" : "250px",
+      logoBandH: TALL_LOGOS[p.client] ? "128px" : "56px",
       hasMark: !!MARKS[p.client],
       markCss: MARKS[p.client] ? 'url("' + MARKS[p.client] + '")' : "none",
       mounted: !!p.vimeo && (this.state.workHover === i || this.state.workWarm === i),
@@ -739,7 +808,7 @@ class Component extends DCLogic {
       workCount: projects.length,
       isGrid: layout === "Two-column grid",
       isStacked: layout !== "Two-column grid",
-      currentFrames: (cur.frames || []).map((n, i) => ({ key: n, css: 'url("uploads/' + n + '.png")', label: "FRAME " + String(i + 1).padStart(2, "0") })),
+      currentFrames: (cur.frames || []).map((n, i) => ({ key: n, css: 'url("uploads/sm-' + n + '.jpg")', label: "FRAME " + String(i + 1).padStart(2, "0") })),
       current: cur,
       hasVideo: !!cur.vimeo,
       noVideo: !cur.vimeo,
@@ -750,6 +819,19 @@ class Component extends DCLogic {
       openNext: this.go("case", { index: nx }),
       showTrustedBy: this.props.showTrustedBy !== false,
       showGear: this.props.showGear !== false,
+      // doubled so the -50% keyframe lands exactly on the copy's start — seamless loop
+      marqueeClients: ["Vitality","Kérastase","Dialed Labs","Hotel Joaquin","Paradise Ranch Inn","Vitality","Kérastase","Dialed Labs","Hotel Joaquin","Paradise Ranch Inn"].map((n, i) => ({
+        key: i,
+        name: n,
+        hasLogo: n === "Vitality" || n === "Dialed Labs" || n === "Hotel Joaquin" || n === "Kérastase",
+        noLogo: !(n === "Vitality" || n === "Dialed Labs" || n === "Hotel Joaquin" || n === "Kérastase"),
+        hasMark: n === "Paradise Ranch Inn",
+        markCss: n === "Paradise Ranch Inn" ? 'url("uploads/logo-paradise-white.png")' : "none",
+        logoCss: n === "Vitality" ? 'url("uploads/logo-vitality-white.png")'
+          : n === "Dialed Labs" ? 'url("uploads/logo-dialedlabs.png")'
+          : n === "Hotel Joaquin" ? 'url("uploads/idEggxd8n7_1786067711228.png")'
+          : n === "Kérastase" ? 'url("uploads/Kerastase_New_logo-wht.png")' : "none"
+      })),
       clients: ["Vitality","Kérastase","Dialed Labs","Hotel Joaquin","Paradise Ranch Inn"].map((n, i) => ({
         key: i,
         name: n,
@@ -762,7 +844,6 @@ class Component extends DCLogic {
           : n === "Hotel Joaquin" ? 'url("uploads/idEggxd8n7_1786067711228.png")'
           : n === "Kérastase" ? 'url("uploads/Kerastase_New_logo-wht.png")' : "none"
       })),
-      marqueeClients: ["Vitality", "Kérastase", "Dialed Labs", "Hotel Joaquin", "Paradise Ranch Inn", "Hawk & Mesa", "Encinitas Oceanfront Estate", "Vitality", "Kérastase", "Dialed Labs", "Hotel Joaquin", "Paradise Ranch Inn", "Hawk & Mesa", "Encinitas Oceanfront Estate"].map((n, i) => ({ name: n, key: i })),
       pillars: [
         { num: "01", title: "Envision", line: "Bold ideas, sharp strategy.", items: [{label:"Concept development & ideation"},{label:"Creative direction"},{label:"Content strategy"}] },
         { num: "02", title: "Craft", line: "From concept to creation.", items: [{label:"Scriptwriting & storyboarding"},{label:"Full-scale video production"},{label:"Editing & post-production"}] },
@@ -790,31 +871,59 @@ class Component extends DCLogic {
       statusMsg: this.state.error ? "Something went wrong — email us directly at info@sentiremedia.co" : "",
       hasError: !!this.state.error,
       fields: [
-        { label: "Name", ph: "Your name", name: "name", type: "text", required: true },
-        { label: "Brand", ph: "Company", name: "brand", type: "text", required: false },
-        { label: "Email", ph: "you@brand.co", name: "email", type: "email", required: true },
-        { label: "Budget range", ph: "Optional", name: "budget", type: "text", required: false }
+        { label: "First Name", name: "firstName", type: "text", required: true },
+        { label: "Last Name", name: "lastName", type: "text", required: true },
+        { label: "Email Address", name: "email", type: "email", required: true }
       ],
-      submitLabel: this.state.sending ? "Sending…" : this.state.sent ? "Received — thank you" : "Send enquiry",
+      submitLabel: this.state.sending ? "Sending…" : this.state.sent ? "Received — thank you" : "Submit",
       submit: (e) => {
         e.preventDefault();
         if (this.state.sending || this.state.sent) return;
         const form = e.target;
-        const data = new FormData(form);
-        if (!FORM_ENDPOINT) {                       // not configured yet — fail loudly, never silently
-          this.setState({ error: true });
-          return;
-        }
+        const d = new FormData(form);
+        const get = (k) => (d.get(k) || "").toString().trim();
+        const first = get("firstName"), last = get("lastName");
+        const from = get("email"), msg = get("message");
+        const name = (first + " " + last).trim();
+
+        const openMail = () => {
+          const subject = "New enquiry" + (name ? " — " + name : "");
+          const body = [
+            "Name: " + (name || "—"),
+            "Email: " + (from || "—"),
+            "",
+            msg || ""
+          ].join("\n");
+          window.location.href = "mailto:" + STUDIO_EMAIL +
+            "?subject=" + encodeURIComponent(subject) +
+            "&body=" + encodeURIComponent(body);
+          this.setState({ sending: false, sent: true });
+        };
+
+        if (!FORM_ENDPOINT) { openMail(); return; }   // no service configured — hand off to mail client
         this.setState({ sending: true, error: false });
-        fetch(FORM_ENDPOINT, { method: "POST", body: data, headers: { Accept: "application/json" } })
+        fetch(FORM_ENDPOINT, { method: "POST", body: d, headers: { Accept: "application/json" } })
           .then((r) => {
             if (!r.ok) throw new Error("bad status");
             this.setState({ sending: false, sent: true });
             form.reset();
           })
-          .catch(() => this.setState({ sending: false, error: true }));
+          .catch(openMail);                            // network/service failure still reaches you
       },
       showLoader: !(this.state.loaderDone || Component._loaderDone),
+      mountHeroReel: !!this.state.heroReel,
+      wmOn: () => this.setState({ wmHover: true }),
+      wmOff: () => this.setState({ wmHover: false }),
+      wordmark: "SENTIRE STUDIOS".split("").map((ch, i) => ({
+        key: i,
+        ch: ch === " " ? "\u00A0" : ch,
+        width: ch === " " ? "0.34em" : "auto",
+        delay: (i * 34) + "ms",
+        transform: this.state.wmHover ? "translateY(-0.3em) rotateX(360deg) scale(1.08)" : "none",
+        color: this.state.wmHover ? "#B79A72" : "#EDE9E2"
+      })),
+      wmMarkTransform: this.state.wmHover ? "rotate(360deg) scale(1.5)" : "none",
+      wmMarkColor: this.state.wmHover ? "#B79A72" : "#EDE9E2",
       burgerDisplay: this.state.isMobile ? "flex" : "none",
       navDisplay: this.state.isMobile ? "none" : "flex",
       menuDisplay: this.state.isMobile && this.state.menuOpen ? "flex" : "none",
@@ -831,7 +940,7 @@ class Component extends DCLogic {
       h: {
         work: this.hoverPair("work"), services: this.hoverPair("services"),
         about: this.hoverPair("about"), contact: this.hoverPair("contact"),
-        email: this.hoverPair("email"), insta: this.hoverPair("insta"),
+        email: this.hoverPair("email"), insta: this.hoverPair("insta"), li: this.hoverPair("li"),
         nWork: this.hoverPair("nWork"), nServices: this.hoverPair("nServices"),
         nAbout: this.hoverPair("nAbout"), nCta: this.hoverPair("nCta")
       }
