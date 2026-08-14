@@ -9,7 +9,6 @@
 <x-dc>
 <helmet>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preload" as="image" href="uploads/1_4.2.1.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://player.vimeo.com">
 <link rel="preconnect" href="https://f.vimeocdn.com" crossorigin="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -105,10 +104,8 @@
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
   <main>
     <section style="position:relative;height:calc(100svh - 28px);min-height:520px;margin:clamp(8px,2vw,14px);border-radius:clamp(16px,2.5vw,28px);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end">
-      <div style="position:absolute;inset:0;background-image:url('uploads/1_4.2.1.jpg');background-size:cover;background-position:center;animation:drift 26s ease-in-out infinite alternate"></div>
-      <sc-if value="{{ mountHeroReel }}">
-      <iframe data-heroreel="1" src="https://player.vimeo.com/video/1216295803?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;dnt=1&amp;quality=auto" title="Showreel" frameborder="0" loading="eager" allow="autoplay; fullscreen" allowfullscreen="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100vw;height:56.25vw;min-height:100%;min-width:177.78vh;border:0;pointer-events:none;opacity:0;animation:reelIn 900ms ease forwards"></iframe>
-      </sc-if>
+      <div style="position:absolute;inset:0;background:#0B0B0A"></div>
+      <iframe data-heroreel="1" src="https://player.vimeo.com/video/1216295803?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;dnt=1&amp;quality=auto" title="Showreel" frameborder="0" loading="eager" allow="autoplay; fullscreen" allowfullscreen="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100vw;height:56.25vw;min-height:100%;min-width:177.78vh;border:0;pointer-events:none;opacity:0;animation:reelIn 400ms ease forwards"></iframe>
       <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%,rgba(11,11,10,0) 0%,rgba(11,11,10,0.55) 60%,#0B0B0A 100%)"></div>
       
       <div style="position:relative;padding:0 clamp(20px,5vw,40px) clamp(34px,6vw,56px);display:flex;flex-direction:column;gap:clamp(20px,3.5vw,34px)">
@@ -236,7 +233,7 @@
     </section>
 
     <section style="position:relative;overflow:hidden;padding:clamp(110px,17vw,190px) clamp(20px,5vw,40px) clamp(110px,17vw,190px);border-top:1px solid rgba(237,233,226,0.08);text-align:center">
-      <div style="position:absolute;inset:0;background-image:url('uploads/7d14fa0d-0d4c-4859-8960-a9c28d3666b1_sm.avif');background-size:cover;background-position:center"></div>
+      <div style="position:absolute;inset:0;background-image:url('uploads/web-cta-bg.jpg');background-size:cover;background-position:center"></div>
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,10,0.82),rgba(11,11,10,0.62) 45%,rgba(11,11,10,0.88))"></div>
       <div style="position:relative">
         <p style="margin:0 0 30px;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(237,233,226,0.7)">Los Angeles — currently booking Q4 2026</p>
@@ -412,7 +409,7 @@
       <p style="margin:40px 0 0;max-width:34ch;font-size:16px;line-height:1.7;color:rgba(237,233,226,0.6)">Tell us the feeling you're after. We'll come back within two business days.</p>
       <div style="margin-top:70px;display:flex;flex-direction:column;gap:22px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,233,226,0.5)">
         <a href="mailto:info@sentiremedia.co">info@sentiremedia.co</a>
-        <a href="https://www.instagram.com/sentiremedia.co" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:9px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"></circle></svg>Instagram</a>
+        <a href="https://www.instagram.com/sentiremedia.co?igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:9px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"></circle></svg>Instagram</a>
         <a href="https://www.linkedin.com/in/sentire-media-35a766426/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:9px"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="flex:none"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.3 8.65 22 11 22 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21h-4z"></path></svg>LinkedIn</a>
         <span>Los Angeles — booking Q4 2026</span>
       </div>
@@ -476,7 +473,7 @@
           <span style="display:block;height:15px;line-height:15px;color:#B79A72">info@sentiremedia.co</span>
         </span>
       </a>
-      <a href="https://www.instagram.com/sentiremedia.co" target="_blank" rel="noopener noreferrer" onMouseEnter="{{ h.insta.on }}" onMouseLeave="{{ h.insta.off }}" style="display:flex;align-items:center;gap:9px;width:fit-content">
+      <a href="https://www.instagram.com/sentiremedia.co?igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer" onMouseEnter="{{ h.insta.on }}" onMouseLeave="{{ h.insta.off }}" style="display:flex;align-items:center;gap:9px;width:fit-content">
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"></circle></svg>
         <span style="display:block;overflow:hidden;height:15px">
           <span style="display:block;transition:transform .55s cubic-bezier(.16,.84,.24,1);transform:translateY({{ h.insta.y }})">
@@ -549,7 +546,8 @@ const PROJECTS = [
 const STUDIO_EMAIL = "info@sentiremedia.co";
 
 // Set to "" to skip the service entirely and always open the visitor's mail app.
-const FORM_ENDPOINT = "https://formspree.io/f/xrpzbyrr";
+const FORM_ENDPOINT = "https://api.web3forms.com/submit";
+const FORM_ACCESS_KEY = "5e18a430-9aa3-4ef3-9fda-a552108b0ae8";
 
 const LOGOS = {
   "Vitality": "uploads/logo-vitality-white.png",
@@ -646,9 +644,6 @@ class Component extends DCLogic {
 
   componentDidMount() {
     this.runLoader();
-    // hero reel mounts after first paint so it never blocks the still or the layout
-    const delay = window.innerWidth <= 820 ? 1800 : 900;
-    this._reelT = setTimeout(() => this.setState({ heroReel: true }), delay);
     this.measure();
     setTimeout(this.measure, 400);
     window.addEventListener("resize", this.measure);
@@ -902,6 +897,10 @@ class Component extends DCLogic {
 
         if (!FORM_ENDPOINT) { openMail(); return; }   // no service configured — hand off to mail client
         this.setState({ sending: true, error: false });
+        d.append("access_key", FORM_ACCESS_KEY);
+        d.append("subject", "New enquiry from sentirestudios.com" + (name ? " — " + name : ""));
+        d.append("from_name", name || "Website enquiry");
+        if (from) d.append("replyto", from);
         fetch(FORM_ENDPOINT, { method: "POST", body: d, headers: { Accept: "application/json" } })
           .then((r) => {
             if (!r.ok) throw new Error("bad status");
@@ -911,7 +910,6 @@ class Component extends DCLogic {
           .catch(openMail);                            // network/service failure still reaches you
       },
       showLoader: !(this.state.loaderDone || Component._loaderDone),
-      mountHeroReel: !!this.state.heroReel,
       wmOn: () => this.setState({ wmHover: true }),
       wmOff: () => this.setState({ wmHover: false }),
       wordmark: "SENTIRE STUDIOS".split("").map((ch, i) => ({
