@@ -13,8 +13,17 @@
 <link rel="preconnect" href="https://f.vimeocdn.com" crossorigin="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Archivo:wght@300;400;500&amp;family=Jost:wght@200;300;400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Archivo:wght@300;400;500&amp;family=Jost:wght@200;300;400;500&amp;family=Hanken+Grotesk:wght@400;500;600;700&amp;family=Archivo+Narrow:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <style>
+  @font-face {
+    font-family: "Vintage Rhyme";
+    src: url("uploads/font.woff2") format("woff2"),
+         url("uploads/font.woff") format("woff"),
+         url("uploads/VintageRhyme-Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
   html { background: #0B0B0A; scroll-behavior: smooth; }
   body { margin: 0; background: #0B0B0A; color: #EDE9E2; font-family: "Archivo", "Helvetica Neue", Helvetica, sans-serif; -webkit-font-smoothing: antialiased; }
   * { box-sizing: border-box; }
@@ -61,19 +70,23 @@
 
   <sc-if value="{{ showLoader }}" hint-placeholder-val="{{ true }}">
   <div data-loader="1" style="position:fixed;inset:0;z-index:900;background:#0B0B0A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;pointer-events:none">
-    <div data-loader-logo="1" style="font-family:Jost,Archivo,sans-serif;font-weight:400;font-size:clamp(17px,4.4vw,26px);letter-spacing:0.42em;text-transform:uppercase;color:#EDE9E2;white-space:nowrap">Sentire Studios<sup style="font-size:0.42em;letter-spacing:0;vertical-align:super;margin-left:0.15em">©</sup></div>
+    <div data-loader-logo="1" style="display:flex;align-items:baseline;font-size:clamp(17px,4.4vw,26px);text-transform:uppercase;color:#EDE9E2;white-space:nowrap">
+      <span style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-weight:400;font-size:1.5em;letter-spacing:0.12em">Sentire</span>
+      <span style="font-family:'Hanken Grotesk',Archivo,sans-serif;font-weight:600;letter-spacing:0.42em;margin-left:0.34em">Studios</span>
+      <sup style="font-family:'Hanken Grotesk',Archivo,sans-serif;font-size:0.42em;letter-spacing:0;margin-left:0.15em;align-self:flex-start">©</sup>
+    </div>
     <div style="position:relative;width:min(300px,58vw);height:1px;background:rgba(237,233,226,0.16);overflow:hidden">
       <div data-loader-bar="1" style="position:absolute;inset:0;background:#B79A72;transform:scaleX(0);transform-origin:left"></div>
     </div>
-    <div data-loader-count="1" style="position:absolute;bottom:38px;right:40px;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.2em;color:rgba(237,233,226,0.45)">00</div>
+    <div data-loader-count="1" style="position:absolute;bottom:38px;right:40px;font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.2em;color:rgba(237,233,226,0.45)">00</div>
   </div>
   </sc-if>
 
-  <header style="position:fixed;top:14px;left:14px;right:14px;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:clamp(12px,3vw,20px) clamp(16px,4vw,34px);border-top-left-radius:28px;border-top-right-radius:28px;background:linear-gradient(#0B0B0A99,#0B0B0A00)">
+  <header style="position:fixed;top:14px;left:14px;right:14px;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:clamp(12px,3vw,20px) clamp(16px,4vw,34px);border-radius:28px;background:{{ headerBg }};backdrop-filter:{{ headerBlur }};transition:background .4s ease,backdrop-filter .4s ease">
     <a href="#" onClick="{{ goHome }}" onMouseEnter="{{ wmOn }}" onMouseLeave="{{ wmOff }}" style="display:flex;align-items:center;gap:14px;perspective:520px">
-      <span style="display:flex;align-items:baseline;font-family:Jost,Archivo,sans-serif;font-weight:400;font-size:clamp(13px,3.2vw,17px);letter-spacing:0.4em;text-transform:uppercase;color:#EDE9E2;opacity:.95;white-space:nowrap">
+      <span style="display:flex;align-items:baseline;font-family:'Hanken Grotesk',Archivo,sans-serif;font-weight:600;font-size:clamp(13px,3.2vw,17px);letter-spacing:0.4em;text-transform:uppercase;color:#EDE9E2;opacity:.95;white-space:nowrap">
         <sc-for list="{{ wordmark }}" as="l" hint-placeholder-count="15">
-          <span style="display:inline-block;width:{{ l.width }};transform-style:preserve-3d;transition:transform 620ms cubic-bezier(.2,.9,.25,1),color 620ms ease;transition-delay:{{ l.delay }};transform:{{ l.transform }};color:{{ l.color }}">{{ l.ch }}</span>
+          <span style="display:inline-block;width:{{ l.width }};font-family:{{ l.font }};font-weight:{{ l.weight }};font-size:{{ l.size }};letter-spacing:{{ l.track }};transform-style:preserve-3d;transition:transform 620ms cubic-bezier(.2,.9,.25,1),color 620ms ease;transition-delay:{{ l.delay }};transform:{{ l.transform }};color:{{ l.color }}">{{ l.ch }}</span>
         </sc-for>
         <sup style="font-size:0.42em;line-height:1;letter-spacing:0;margin-left:0.15em;display:block;align-self:flex-start;transition:transform 700ms cubic-bezier(.2,.9,.25,1) 520ms,color 620ms ease 520ms;transform:{{ wmMarkTransform }};color:{{ wmMarkColor }}">©</sup>
       </span>
@@ -82,7 +95,7 @@
       <span style="display:block;width:26px;height:1px;background:#EDE9E2;transition:transform .4s cubic-bezier(.2,.8,.2,1);transform:{{ burgerTop }}"></span>
       <span style="display:block;width:26px;height:1px;background:#EDE9E2;transition:transform .4s cubic-bezier(.2,.8,.2,1),opacity .3s ease;opacity:{{ burgerMidOpacity }};transform:{{ burgerBottom }}"></span>
     </button>
-    <nav ref="{{ navRef }}" style="position:relative;display:{{ navDisplay }};align-items:center;gap:12px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase">
+    <nav ref="{{ navRef }}" style="font-family:'Archivo Narrow',Archivo,sans-serif;position:relative;display:{{ navDisplay }};align-items:center;gap:12px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase">
       <span data-navpill="1" style="position:absolute;top:50%;margin-top:-19px;height:38px;left:0;width:0;opacity:0;border:1px solid rgba(237,233,226,0.55);border-radius:100px;pointer-events:none;transition:left .45s cubic-bezier(.2,.8,.2,1),width .45s cubic-bezier(.2,.8,.2,1),opacity .2s ease"></span>
       <a href="#" data-nav="home" onClick="{{ goHome }}" onMouseEnter="{{ navEnterHome }}" onMouseLeave="{{ navLeave }}" style="display:block;padding:11px 20px;position:relative">Home</a>
       <a href="#" data-nav="work" onClick="{{ goWork }}" onMouseEnter="{{ navEnterWork }}" onMouseLeave="{{ navLeave }}" style="display:block;padding:11px 20px;position:relative">Work</a>
@@ -96,8 +109,8 @@
     <a href="#" onClick="{{ goWork }}" style="font-size:34px;font-weight:300;letter-spacing:-0.02em;text-transform:uppercase;padding:14px 0">Work</a>
     <a href="#" onClick="{{ goServices }}" style="font-size:34px;font-weight:300;letter-spacing:-0.02em;text-transform:uppercase;padding:14px 0">Services</a>
     <a href="#" onClick="{{ goAbout }}" style="font-size:34px;font-weight:300;letter-spacing:-0.02em;text-transform:uppercase;padding:14px 0">About</a>
-    <a href="#" onClick="{{ goContact }}" style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:34px;color:#B79A72;padding:14px 0">Start a project</a>
-    <div style="margin-top:40px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,233,226,0.45)">info@sentiremedia.co</div>
+    <a href="#" onClick="{{ goContact }}" style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-size:34px;color:#B79A72;padding:14px 0">Start a project</a>
+    <div style="font-family:'Archivo Narrow',Archivo,sans-serif;margin-top:40px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,233,226,0.45)">info@sentiremedia.co</div>
   </div>
 
   <!-- ================= HOME ================= -->
@@ -109,11 +122,11 @@
       <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%,rgba(11,11,10,0) 0%,rgba(11,11,10,0.55) 60%,#0B0B0A 100%)"></div>
       
       <div style="position:relative;padding:0 clamp(20px,5vw,40px) clamp(34px,6vw,56px);display:flex;flex-direction:column;gap:clamp(20px,3.5vw,34px)">
-        <div style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(237,233,226,0.9);text-shadow:0 1px 18px rgba(11,11,10,0.9)">Brand storytelling — Los Angeles</div>
-        <h1 style="margin:0;font-size:clamp(26px,4vw,62px);line-height:1.28;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Films for places<br>worth <span style="display:inline-block;font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:-0.01em;font-weight:400"><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1250ms forwards">f</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1320ms forwards">e</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1390ms forwards">e</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1460ms forwards">l</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1530ms forwards">i</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1600ms forwards">n</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1670ms forwards">g</span></span></h1>
+        <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(237,233,226,0.9);text-shadow:0 1px 18px rgba(11,11,10,0.9)">Brand storytelling — Los Angeles</div>
+        <h1 style="margin:0;font-size:clamp(26px,4vw,62px);line-height:1.28;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Films for places<br>worth <span style="display:inline-block;font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;text-transform:none;letter-spacing:-0.01em;font-weight:400"><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1250ms forwards">f</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1320ms forwards">e</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1390ms forwards">e</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1460ms forwards">l</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1530ms forwards">i</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1600ms forwards">n</span><span style="display:inline-block;opacity:0;animation:letterPop 700ms cubic-bezier(.16,1.2,.3,1) 1670ms forwards">g</span></span></h1>
         <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:48px;flex-wrap:wrap">
           <div style="margin:0;max-width:38ch;font-size:15px;line-height:1.7;color:rgba(237,233,226,0.6)"><p data-pm-slice="1 1 []">Lifestyle Media &amp; Luxury Hospitality&nbsp;</p></div>
-          <div data-m="scroll" style="display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.45)">
+          <div data-m="scroll" style="font-family:'Archivo Narrow',Archivo,sans-serif;display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.45)">
             <span style="display:block;width:1px;height:52px;background:rgba(237,233,226,0.2);overflow:hidden;position:relative"><span style="position:absolute;inset:0;background:#B79A72;animation:scrollcue 2.6s cubic-bezier(.7,0,.3,1) infinite"></span></span>
             Scroll
           </div>
@@ -121,23 +134,30 @@
       </div>
     </section>
 
-    
+    <section style="padding:clamp(96px,15vw,180px) clamp(20px,5vw,40px) clamp(96px,15vw,170px);display:flex;flex-direction:column;align-items:flex-start">
+      <div data-reveal="1" style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(38px,7vw,104px);letter-spacing:0.04em;text-transform:uppercase;color:#EDE9E2;line-height:1;white-space:nowrap">Sentire</div>
+      <div data-reveal="1" data-reveal-index="1" style="margin-top:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:8px;font-family:'Archivo Narrow',Archivo,sans-serif;font-size:13px;letter-spacing:0.14em;color:rgba(237,233,226,0.5)">
+        <div>[verb]</div>
+        <div>sen·ti·re</div>
+      </div>
+      <p data-reveal="1" data-reveal-index="2" style="margin:clamp(46px,7vw,80px) 0 0;max-width:60ch;font-size:clamp(16px,1.7vw,21px);line-height:1.8;color:rgba(237,233,226,0.78);text-wrap:pretty">From Latin, meaning to feel, to perceive, to sense. Our full-service production studio brings stories to life through image, sound, and feeling.</p>
+    </section>
 
     <sc-if value="{{ showTrustedBy }}" hint-placeholder-val="{{ true }}">
     <section data-reveal="1" style="padding:0 0 130px;overflow:hidden">
-      <div style="padding:0 clamp(20px,5vw,40px) clamp(38px,6vw,64px);font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.55);text-align:center">Trusted by</div>
-      <div style="padding:0 clamp(20px,5vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(34px,5vw,56px) clamp(24px,4vw,40px);align-items:center;justify-items:center">
+      <div style="font-family:'Archivo Narrow',Archivo,sans-serif;padding:0 clamp(20px,5vw,40px) clamp(38px,6vw,64px);font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.55);text-align:center">Trusted by</div>
+      <div style="padding:0 clamp(20px,5vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(34px,5vw,56px) clamp(24px,4vw,40px);align-items:center;justify-items:center">
         <sc-for list="{{ clients }}" as="c" hint-placeholder-count="5">
-          <div data-reveal="1" data-reveal-index="{{ c.key }}" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:140px;height:38px">
+          <div data-reveal="1" data-reveal-index="{{ c.key }}" style="display:flex;align-items:center;justify-content:center;width:100%;max-width:246px;height:28px">
             <sc-if value="{{ c.hasLogo }}">
-              <div role="img" aria-label="{{ c.name }}" style="width:100%;height:38px;background-image:{{ c.logoCss }};background-size:contain;background-position:center;background-repeat:no-repeat;opacity:0.78"></div>
+              <div role="img" aria-label="{{ c.name }}" style="width:100%;max-width:{{ c.logoBoxW }};height:{{ c.logoH }};background-image:{{ c.logoCss }};background-size:contain;background-position:center;background-repeat:no-repeat;opacity:0.78"></div>
             </sc-if>
             <sc-if value="{{ c.noLogo }}">
               <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
                 <sc-if value="{{ c.hasMark }}">
                   <div style="width:22px;height:26px;background-image:{{ c.markCss }};background-size:contain;background-position:center;background-repeat:no-repeat;opacity:0.78"></div>
                 </sc-if>
-                <div style="font-size:14px;font-weight:300;letter-spacing:0.1em;text-transform:uppercase;color:rgba(237,233,226,0.72);text-align:center;white-space:nowrap">{{ c.name }}</div>
+                <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:14px;font-weight:300;letter-spacing:0.1em;text-transform:uppercase;color:rgba(237,233,226,0.72);text-align:center;white-space:nowrap">{{ c.name }}</div>
               </div>
             </sc-if>
           </div>
@@ -147,8 +167,8 @@
     </sc-if>
 
     <section style="padding:0 clamp(20px,5vw,40px) 40px;display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap">
-      <h2 data-reveal="1" style="margin:0;font-size:clamp(26px,4vw,62px);line-height:0.98;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Selected<br><span style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none">work</span></h2>
-      <a href="#" onClick="{{ goWork }}" style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.6);border-bottom:1px solid rgba(237,233,226,0.25);padding-bottom:6px">All projects</a>
+      <h2 data-reveal="1" style="margin:0;font-size:clamp(26px,4vw,62px);line-height:0.98;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Selected<br><span style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;text-transform:none">work</span></h2>
+      <a href="#" onClick="{{ goWork }}" style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.6);border-bottom:1px solid rgba(237,233,226,0.25);padding-bottom:6px">All projects</a>
     </section>
 
     <section style="padding:50px 0 140px;display:flex;flex-direction:column;gap:10px">
@@ -159,14 +179,14 @@
             <div style="position:absolute;inset:0;background-image:{{ p.coverCss }};background-size:cover;background-position:center;transition:transform 1.1s cubic-bezier(.2,.8,.2,1);transform:{{ p.scale }}"></div>
           </sc-if>
           <sc-if value="{{ p.noVideo }}" hint-placeholder-val="{{ true }}">
-            <div style="position:absolute;left:56px;top:28px;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.24em;color:rgba(237,233,226,0.28)">{{ p.slot }}</div>
+            <div style="position:absolute;left:56px;top:28px;font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.24em;color:rgba(237,233,226,0.28)">{{ p.slot }}</div>
           </sc-if>
           <div style="position:absolute;inset:0;background:#0B0B0A;transition:opacity .6s ease;opacity:{{ p.dim }}"></div>
           <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,11,10,0.55),rgba(11,11,10,0.1) 45%,rgba(11,11,10,0))"></div>
           <div data-m="band" style="position:absolute;inset:0;padding:0 clamp(20px,5vw,56px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,60px);align-items:center">
             <div style="display:flex;flex-direction:column;gap:16px">
               <sc-if value="{{ p.hasLogo }}">
-                <div role="img" aria-label="{{ p.client }}" style="width:100%;max-width:{{ p.logoBandW }};height:{{ p.logoBandH }};background-image:{{ p.logoCss }};background-size:contain;background-position:left center;background-repeat:no-repeat;filter:drop-shadow(0 2px 24px rgba(11,11,10,0.8))"></div>
+                <div role="img" aria-label="{{ p.client }}" style="flex:none;width:{{ p.logoBandW }};max-width:100%;height:{{ p.logoBandH }};background-image:{{ p.logoCss }};background-size:contain;background-position:left center;background-repeat:no-repeat;filter:drop-shadow(0 2px 24px rgba(11,11,10,0.8))"></div>
               </sc-if>
               <sc-if value="{{ p.noLogo }}">
                 <div style="display:flex;align-items:center;gap:18px">
@@ -176,24 +196,24 @@
                   <h3 style="margin:0;font-size:clamp(28px,3.8vw,60px);font-weight:300;letter-spacing:-0.02em;line-height:1;text-shadow:0 2px 30px rgba(11,11,10,0.5)">{{ p.client }}</h3>
                 </div>
               </sc-if>
-              <div style="font-family:ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:0.12em;color:rgba(237,233,226,0.8)">{{ p.year }}</div>
+              <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:13px;letter-spacing:0.12em;color:rgba(237,233,226,0.8)">{{ p.year }}</div>
             </div>
-            <p style="margin:0;max-width:52ch;font-size:12px;line-height:1.9;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,233,226,0.85);text-shadow:0 2px 24px rgba(11,11,10,0.6)">{{ p.blurb }}</p>
+            <p style="font-family:'Archivo Narrow',Archivo,sans-serif;margin:0;max-width:52ch;font-size:12px;line-height:1.9;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,233,226,0.85);text-shadow:0 2px 24px rgba(11,11,10,0.6)">{{ p.blurb }}</p>
           </div>
           <div style="position:absolute;right:56px;bottom:46px;width:38px;height:38px;border:1px solid rgba(237,233,226,0.85);border-radius:100px;transition:opacity .5s ease;opacity:{{ p.ringOpacity }}"></div>
         </a>
       </sc-for>
     </section>
 
-    <section data-reveal="1" style="padding:clamp(80px,12vw,130px) clamp(20px,5vw,40px);border-top:1px solid rgba(237,233,226,0.08);display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(34px,6vw,80px)">
-      <div style="font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">How we work</div>
+    <section data-reveal="1" style="padding:clamp(80px,12vw,130px) clamp(20px,5vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(34px,6vw,80px)">
+      <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">How we work</div>
       <div style="grid-column:span 2;display:flex;flex-direction:column">
         <sc-for list="{{ pillars }}" as="s" hint-placeholder-count="3">
           <div data-m="pillar" style="display:grid;grid-template-columns:56px 1fr 1fr;gap:clamp(16px,3vw,40px);padding:clamp(30px,5vw,44px) 0;border-top:1px solid rgba(237,233,226,0.1)">
-            <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:rgba(237,233,226,0.4);padding-top:8px">{{ s.num }}</div>
+            <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;color:rgba(237,233,226,0.4);padding-top:8px">{{ s.num }}</div>
             <h3 style="margin:0;font-size:clamp(24px,2.8vw,40px);font-weight:300;letter-spacing:-0.02em;text-transform:uppercase;line-height:1.05">{{ s.title }}</h3>
             <div style="display:flex;flex-direction:column;gap:14px">
-              <p style="margin:0;font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:20px;color:rgba(237,233,226,0.75)">{{ s.line }}</p>
+              <p style="margin:0;font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-size:20px;color:rgba(237,233,226,0.75)">{{ s.line }}</p>
               <sc-for list="{{ s.items }}" as="i" hint-placeholder-count="3">
                 <div style="font-size:13px;letter-spacing:0.04em;color:rgba(237,233,226,0.5)">{{ i.label }}</div>
               </sc-for>
@@ -205,14 +225,14 @@
 
     <sc-if value="{{ showGear }}" hint-placeholder-val="{{ true }}">
     <section data-reveal="1" style="padding:0 clamp(20px,5vw,40px) clamp(80px,12vw,130px);display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(30px,6vw,80px)">
-      <div style="font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">Kit</div>
+      <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">Kit</div>
       <div style="grid-column:span 2">
-        <p style="margin:0 0 34px;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(22px,2.6vw,34px);line-height:1.35;color:rgba(237,233,226,0.85)">Small crews, cinema sensors, natural light first.</p>
+        <p style="margin:0 0 34px;font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-size:clamp(22px,2.6vw,34px);line-height:1.35;color:rgba(237,233,226,0.85)">Small crews, cinema sensors, natural light first.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:rgba(237,233,226,0.1)">
           <sc-for list="{{ gear }}" as="g" hint-placeholder-count="4">
             <div style="background:#0B0B0A;padding:26px 22px;display:flex;flex-direction:column;gap:10px">
               <div style="font-size:15px;letter-spacing:0.04em">{{ g.name }}</div>
-              <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.14em;color:rgba(237,233,226,0.4)">{{ g.role }}</div>
+              <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.14em;color:rgba(237,233,226,0.4)">{{ g.role }}</div>
             </div>
           </sc-for>
         </div>
@@ -226,8 +246,8 @@
           <button onClick="{{ d.go }}" style="width:26px;height:2px;border:0;padding:0;cursor:pointer;background:rgba(237,233,226,0.2)" style-hover="background:#B79A72"></button>
         </sc-for>
       </div>
-      <blockquote style="margin:0;max-width:22ch;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(28px,4.4vw,64px);line-height:1.16;font-weight:400">{{ quote }}</blockquote>
-      <div style="margin-top:44px;display:flex;gap:16px;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.45)">
+      <blockquote style="margin:0;max-width:22ch;font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-size:clamp(28px,4.4vw,64px);line-height:1.16;font-weight:400">{{ quote }}</blockquote>
+      <div style="font-family:'Archivo Narrow',Archivo,sans-serif;margin-top:44px;display:flex;gap:16px;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.45)">
         <span>{{ quoteName }}</span><span style="color:rgba(237,233,226,0.25)">/</span><span>{{ quoteCo }}</span>
       </div>
     </section>
@@ -236,9 +256,9 @@
       <div style="position:absolute;inset:0;background-image:url('uploads/web-cta-bg.jpg');background-size:cover;background-position:center"></div>
       <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,10,0.82),rgba(11,11,10,0.62) 45%,rgba(11,11,10,0.88))"></div>
       <div style="position:relative">
-        <p style="margin:0 0 30px;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(237,233,226,0.7)">Los Angeles — currently booking Q4 2026</p>
-        <h2 data-reveal="1" style="margin:0;font-size:clamp(26px,4vw,62px);line-height:0.98;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase;text-shadow:0 2px 30px rgba(11,11,10,0.7)">Make people<br><span style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none">feel</span> something</h2>
-        <a href="#" onClick="{{ goContact }}" style="display:inline-block;margin-top:56px;padding:19px 44px;border:1px solid rgba(237,233,226,0.45);border-radius:100px;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;backdrop-filter:blur(3px)" style-hover="background:#EDE9E2;color:#0B0B0A;border-color:#EDE9E2">Start a project</a>
+        <p style="font-family:'Archivo Narrow',Archivo,sans-serif;margin:0 0 30px;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(237,233,226,0.7)">Los Angeles — currently booking Q4 2026</p>
+        <h2 data-reveal="1" style="margin:0;font-size:clamp(26px,4vw,62px);line-height:0.98;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase;text-shadow:0 2px 30px rgba(11,11,10,0.7)">Make people<br><span style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;text-transform:none">feel</span> something</h2>
+        <a href="#" onClick="{{ goContact }}" style="font-family:'Archivo Narrow',Archivo,sans-serif;display:inline-block;margin-top:56px;padding:19px 44px;border:1px solid rgba(237,233,226,0.45);border-radius:100px;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;backdrop-filter:blur(3px)" style-hover="background:#EDE9E2;color:#0B0B0A;border-color:#EDE9E2">Start a project</a>
       </div>
     </section>
   </main>
@@ -248,22 +268,24 @@
   <sc-if value="{{ isWork }}" hint-placeholder-val="{{ true }}">
   <main style="padding:clamp(120px,22vw,200px) clamp(14px,4vw,40px) 44px">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(237,233,226,0.1)">
-      <h1 style="margin:0;font-size:clamp(46px,9vw,150px);line-height:0.88;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Work</h1>
-      <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.18em;color:rgba(237,233,226,0.45)">{{ workCount }} PROJECTS / 2023—2026</div>
+      <h1 style="margin:0;font-size:clamp(32px,5.4vw,86px);line-height:0.9;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Work</h1>
+      <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.18em;color:rgba(237,233,226,0.45)">{{ workCount }} PROJECTS / 2023—2026</div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;padding-top:clamp(28px,5vw,44px)">
       <sc-for list="{{ projects }}" as="p" hint-placeholder-count="7">
         <a href="#" onClick="{{ p.open }}" onMouseEnter="{{ p.on }}" onMouseLeave="{{ p.off }}" data-reveal="1" style="position:relative;display:block;width:100%;aspect-ratio:16/9;overflow:hidden;text-decoration:none;background:repeating-linear-gradient(115deg,#131211 0 14px,#171614 14px 28px)">
-          <div style="position:absolute;inset:0;background-image:{{ p.tileCoverCss }};background-size:cover;background-position:center;transition:transform 1.2s cubic-bezier(.2,.8,.2,1),opacity .8s ease;transform:{{ p.scale }}"></div>
+          <sc-if value="{{ p.hasCover }}">
+            <div style="position:absolute;inset:0;background-image:{{ p.tileCoverCss }};background-size:cover;background-position:center;transition:transform 1.2s cubic-bezier(.2,.8,.2,1);transform:{{ p.scale }}"></div>
+          </sc-if>
           <sc-if value="{{ p.mounted }}">
             <div style="position:absolute;inset:0;overflow:hidden;transition:opacity 1s ease;opacity:{{ p.filmOpacity }}">
-              <iframe src="{{ p.tileEmbed }}" title="{{ p.client }}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:56.25vw;min-height:100%;border:0;pointer-events:none"></iframe>
+              <iframe src="{{ p.tileEmbed }}" title="{{ p.client }}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="" style="position:absolute;top:50%;left:50%;transform:{{ p.filmFit }};width:calc(100% + 4px);height:calc(100% + 4px);border:0;pointer-events:none"></iframe>
             </div>
           </sc-if>
           <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,10,0.15),rgba(11,11,10,0.05) 45%,rgba(11,11,10,0.7));transition:opacity .7s ease;opacity:{{ p.tileDim }}"></div>
           <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px">
             <sc-if value="{{ p.hasLogo }}">
-              <div role="img" aria-label="{{ p.client }}" style="width:100%;max-width:{{ p.logoTileW }};height:{{ p.logoTileH }};background-image:{{ p.logoCss }};background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 2px 22px rgba(11,11,10,0.85))"></div>
+              <div role="img" aria-label="{{ p.client }}" style="flex:none;width:{{ p.logoTileW }};max-width:100%;height:{{ p.logoTileH }};background-image:{{ p.logoCss }};background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 2px 22px rgba(11,11,10,0.85))"></div>
             </sc-if>
             <sc-if value="{{ p.noLogo }}">
               <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
@@ -273,7 +295,9 @@
                 <div style="font-size:clamp(18px,2vw,28px);font-weight:300;letter-spacing:0.16em;text-transform:uppercase;text-shadow:0 2px 26px rgba(11,11,10,0.75)">{{ p.client }}</div>
               </div>
             </sc-if>
-            <div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:16px;color:rgba(237,233,226,0.75);text-shadow:0 2px 20px rgba(11,11,10,0.8)">{{ p.title }}</div>
+            <sc-if value="{{ p.hasTileTitle }}" hint-placeholder-val="{{ true }}">
+              <div style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-size:16px;color:rgba(237,233,226,0.75);text-shadow:0 2px 20px rgba(11,11,10,0.8)">{{ p.title }}</div>
+            </sc-if>
           </div>
         </a>
       </sc-for>
@@ -293,21 +317,25 @@
       <section style="position:relative;width:100%;aspect-ratio:21/9;min-height:340px;overflow:hidden;margin-top:96px">
         <div style="position:absolute;inset:0;background:repeating-linear-gradient(115deg,#131211 0 14px,#171614 14px 28px);animation:drift 30s ease-in-out infinite alternate"></div>
         <div style="position:absolute;inset:0;background:linear-gradient(#0B0B0A00 55%,#0B0B0A)"></div>
-        <div style="position:absolute;left:40px;top:26px;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.26em;color:rgba(237,233,226,0.3)">{{ current.slot }}</div>
+        <div style="position:absolute;left:40px;top:26px;font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.26em;color:rgba(237,233,226,0.3)">{{ current.slot }}</div>
       </section>
     </sc-if>
 
     <section style="padding:clamp(52px,8vw,80px) clamp(20px,5vw,40px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:50px;align-items:end">
       <div style="grid-column:span 2">
-        <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.45);margin-bottom:26px">{{ current.tags }} — {{ current.year }}</div>
+        <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.45);margin-bottom:26px">{{ current.tags }} — {{ current.year }}</div>
         <h1 style="margin:0;font-size:clamp(44px,8.4vw,140px);line-height:0.88;font-weight:300;letter-spacing:-0.035em;text-transform:uppercase">{{ current.client }}</h1>
-        <p style="margin:20px 0 0;font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(24px,3.2vw,48px);letter-spacing:-0.01em;color:rgba(237,233,226,0.7)">{{ current.title }}</p>
+        <sc-if value="{{ hasCaseTitle }}" hint-placeholder-val="{{ true }}">
+          <p style="margin:20px 0 0;font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-size:clamp(24px,3.2vw,48px);letter-spacing:-0.01em;color:rgba(237,233,226,0.7)">{{ current.title }}</p>
+        </sc-if>
       </div>
     </section>
 
     <section style="padding:clamp(54px,8vw,90px) clamp(20px,5vw,40px) clamp(70px,10vw,110px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:70px;align-items:start">
-      <p style="grid-column:span 2;margin:0;font-size:clamp(19px,2.1vw,29px);line-height:1.55;color:rgba(237,233,226,0.82);max-width:54ch;text-wrap:pretty">{{ current.body }}</p>
-      <div style="display:flex;flex-direction:column;gap:0;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,233,226,0.45)">
+      <sc-if value="{{ hasCaseBody }}" hint-placeholder-val="{{ true }}">
+        <p style="grid-column:span 2;margin:0;font-size:clamp(19px,2.1vw,29px);line-height:1.55;color:rgba(237,233,226,0.82);max-width:54ch;text-wrap:pretty">{{ current.body }}</p>
+      </sc-if>
+      <div style="display:flex;flex-direction:column;gap:0;max-width:400px;font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(237,233,226,0.45)">
         <sc-for list="{{ current.credits }}" as="c" hint-placeholder-count="4">
           <div style="display:flex;justify-content:space-between;gap:18px;padding:16px 0;border-top:1px solid rgba(237,233,226,0.1)">
             <span>{{ c.k }}</span><span style="color:rgba(237,233,226,0.85);text-align:right">{{ c.v }}</span>
@@ -327,7 +355,7 @@
     </section>
 
     <section style="padding:clamp(70px,10vw,110px) clamp(20px,5vw,40px) 40px">
-      <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">Next project</div>
+      <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">Next project</div>
     </section>
     <a href="#" onClick="{{ openNext }}" style="position:relative;display:block;width:100%;aspect-ratio:21/9;overflow:hidden;margin-bottom:0">
       <div style="position:absolute;inset:0;background:repeating-linear-gradient(115deg,#131211 0 14px,#171614 14px 28px)"></div>
@@ -335,11 +363,11 @@
       <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,11,10,0.6),rgba(11,11,10,0.15) 50%,rgba(11,11,10,0.05))"></div>
       <div style="position:absolute;inset:0;padding:0 clamp(20px,5vw,40px);display:flex;flex-direction:column;justify-content:center;gap:12px">
         <h2 style="margin:0;font-size:clamp(32px,5.4vw,86px);line-height:0.94;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">{{ nextClient }}</h2>
-        <div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(18px,2.2vw,30px);color:rgba(237,233,226,0.72)">{{ nextTitle }}</div>
+        <div style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-size:clamp(18px,2.2vw,30px);color:rgba(237,233,226,0.72)">{{ nextTitle }}</div>
       </div>
     </a>
     <section style="padding:40px clamp(20px,5vw,40px) clamp(80px,12vw,130px)">
-      <a href="#" onClick="{{ goWork }}" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.55)">← All work</a>
+      <a href="#" onClick="{{ goWork }}" style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(237,233,226,0.55)">← All work</a>
     </section>
   </main>
   </sc-if>
@@ -348,24 +376,24 @@
   <sc-if value="{{ isServices }}" hint-placeholder-val="{{ true }}">
   <main style="padding:clamp(120px,22vw,200px) clamp(20px,5vw,40px) clamp(90px,14vw,150px)">
     <h1 style="margin:0;font-size:clamp(46px,9vw,150px);line-height:0.88;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Services</h1>
-    <p style="margin:34px 0 0;max-width:44ch;font-family:'Instrument Serif',Georgia,serif;font-size:clamp(22px,2.8vw,38px);line-height:1.3;color:rgba(237,233,226,0.75)">End to end, or the piece you're missing. Luxury hospitality and lifestyle media.</p>
+    <p style="margin:34px 0 0;max-width:44ch;font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-size:clamp(22px,2.8vw,38px);line-height:1.3;color:rgba(237,233,226,0.75)">End to end, or the piece you're missing. Luxury hospitality and lifestyle media.</p>
     <div style="margin-top:clamp(56px,9vw,110px);display:flex;flex-direction:column">
       <sc-for list="{{ services }}" as="s" hint-placeholder-count="5">
         <div data-reveal="1" data-m="svc" style="display:grid;grid-template-columns:70px 1fr 1.2fr;gap:clamp(18px,3vw,44px);padding:clamp(32px,5vw,46px) 0;border-top:1px solid rgba(237,233,226,0.1)">
-          <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:rgba(237,233,226,0.4);padding-top:10px">{{ s.num }}</div>
+          <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;color:rgba(237,233,226,0.4);padding-top:10px">{{ s.num }}</div>
           <h2 style="margin:0;font-size:clamp(24px,3vw,42px);font-weight:300;letter-spacing:-0.02em;text-transform:uppercase;line-height:1.05">{{ s.title }}</h2>
           <div style="display:flex;flex-direction:column;gap:16px">
             <p style="margin:0;font-size:16px;line-height:1.7;color:rgba(237,233,226,0.65)">{{ s.body }}</p>
             <div style="display:flex;flex-wrap:wrap;gap:10px">
               <sc-for list="{{ s.tags }}" as="t" hint-placeholder-count="3">
-                <span style="padding:8px 14px;border:1px solid rgba(237,233,226,0.16);border-radius:100px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,233,226,0.55)">{{ t.label }}</span>
+                <span style="font-family:'Archivo Narrow',Archivo,sans-serif;padding:8px 14px;border:1px solid rgba(237,233,226,0.16);border-radius:100px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(237,233,226,0.55)">{{ t.label }}</span>
               </sc-for>
             </div>
           </div>
         </div>
       </sc-for>
     </div>
-    <a href="#" onClick="{{ goContact }}" style="display:inline-block;margin-top:90px;padding:19px 44px;border:1px solid rgba(237,233,226,0.3);border-radius:100px;font-size:11px;letter-spacing:0.26em;text-transform:uppercase" style-hover="background:#EDE9E2;color:#0B0B0A;border-color:#EDE9E2">Start a project</a>
+    <a href="#" onClick="{{ goContact }}" style="font-family:'Archivo Narrow',Archivo,sans-serif;display:inline-block;margin-top:90px;padding:19px 44px;border:1px solid rgba(237,233,226,0.3);border-radius:100px;font-size:11px;letter-spacing:0.26em;text-transform:uppercase" style-hover="background:#EDE9E2;color:#0B0B0A;border-color:#EDE9E2">Start a project</a>
   </main>
   </sc-if>
 
@@ -373,18 +401,18 @@
   <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ true }}">
   <main style="padding:clamp(120px,22vw,200px) 0 clamp(90px,14vw,150px)">
     <div style="padding:0 clamp(20px,5vw,40px)">
-      <h1 style="margin:0;font-size:clamp(40px,7.4vw,124px);line-height:0.92;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Founded by<br><span style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none">filmmakers</span></h1>
+      <h1 style="margin:0;font-size:clamp(40px,7.4vw,124px);line-height:0.92;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Founded by<br><span style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;text-transform:none">filmmakers</span></h1>
     </div>
-    <div style="margin:90px 0;aspect-ratio:21/9;background:repeating-linear-gradient(115deg,#131211 0 14px,#171614 14px 28px);display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.24em;color:rgba(237,233,226,0.3)">TEAM / BTS FRAME — 21:9</div>
+    
     <div style="padding:0 clamp(20px,5vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(28px,5vw,80px)">
-      <div style="font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">Studio</div>
+      <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">Studio</div>
       <div style="display:flex;flex-direction:column;gap:30px;max-width:56ch">
-        <p style="margin:0;font-size:clamp(19px,2.1vw,28px);line-height:1.55;color:rgba(237,233,226,0.8)">Sentire Media is a Los Angeles production studio making brand films for luxury hospitality and the lifestyle labels around it — villas, hotels, resorts and tourism boards.</p>
-        <p style="margin:0;font-size:16px;line-height:1.75;color:rgba(237,233,226,0.55)">We shoot with lean crews and cinema bodies so rooms stay calm and guests stay themselves. Concept, direction, production and post sit under one roof — which means the feeling we agree on in the first call is the feeling that survives to the final grade.</p>
+        <p style="margin:0;font-size:clamp(19px,2.1vw,28px);line-height:1.55;color:rgba(237,233,226,0.8)">Sentire Studios is a production company for lifestyle brands and luxury hospitality, built by two filmmakers united by a shared eye and a shared style</p>
+        
       </div>
     </div>
     <div style="padding:clamp(70px,11vw,120px) clamp(20px,5vw,40px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(28px,5vw,80px)">
-      <div style="font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">Team</div>
+      <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:rgba(237,233,226,0.4)">Team</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(28px,4vw,40px)">
         <sc-for list="{{ team }}" as="m" hint-placeholder-count="2">
           <div data-reveal="1" style="display:flex;flex-direction:column;gap:16px">
@@ -392,7 +420,7 @@
               <div style="position:absolute;inset:0;background-image:{{ m.portrait }};background-size:cover;background-position:center 20%"></div>
             </div>
             <div style="font-size:17px;letter-spacing:0.04em;text-transform:uppercase">{{ m.name }}</div>
-            <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:0.14em;color:rgba(237,233,226,0.45)">{{ m.role }}</div>
+            <div style="font-family:'Archivo Narrow',Archivo,sans-serif;font-size:11px;letter-spacing:0.14em;color:rgba(237,233,226,0.45)">{{ m.role }}</div>
             <p style="margin:0;font-size:14px;line-height:1.75;color:rgba(237,233,226,0.55)">{{ m.bio }}</p>
           </div>
         </sc-for>
@@ -405,9 +433,9 @@
   <sc-if value="{{ isContact }}" hint-placeholder-val="{{ true }}">
   <main style="padding:clamp(120px,22vw,200px) clamp(20px,5vw,40px) clamp(90px,14vw,150px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(50px,8vw,90px)">
     <div>
-      <h1 style="margin:0;font-size:clamp(40px,7vw,116px);line-height:0.9;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Start a<br><span style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none">project</span></h1>
+      <h1 style="margin:0;font-size:clamp(40px,7vw,116px);line-height:0.9;font-weight:300;letter-spacing:-0.03em;text-transform:uppercase">Start a<br><span style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;text-transform:none">project</span></h1>
       <p style="margin:40px 0 0;max-width:34ch;font-size:16px;line-height:1.7;color:rgba(237,233,226,0.6)">Tell us the feeling you're after. We'll come back within two business days.</p>
-      <div style="margin-top:70px;display:flex;flex-direction:column;gap:22px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,233,226,0.5)">
+      <div style="font-family:'Archivo Narrow',Archivo,sans-serif;margin-top:70px;display:flex;flex-direction:column;gap:22px;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(237,233,226,0.5)">
         <a href="mailto:info@sentiremedia.co">info@sentiremedia.co</a>
         <a href="https://www.instagram.com/sentiremedia.co?igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:9px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"></circle></svg>Instagram</a>
         <a href="https://www.linkedin.com/in/sentire-media-35a766426/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:9px"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="flex:none"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.3 8.65 22 11 22 14.1V21h-4v-6.1c0-1.45-.03-3.32-2.02-3.32-2.02 0-2.33 1.58-2.33 3.21V21h-4z"></path></svg>LinkedIn</a>
@@ -435,10 +463,14 @@
 
   <footer style="padding:clamp(52px,8vw,70px) clamp(20px,5vw,40px) 46px;border-top:1px solid rgba(237,233,226,0.09);display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(34px,5vw,50px);align-items:start">
     <div style="display:flex;flex-direction:column;gap:22px">
-      <span style="font-family:Jost,Archivo,sans-serif;font-weight:400;font-size:16px;letter-spacing:0.38em;text-transform:uppercase;color:#EDE9E2;opacity:.85;white-space:nowrap">Sentire Studios<sup style="font-size:0.42em;letter-spacing:0;vertical-align:super;margin-left:0.15em">©</sup></span>
-      <div style="font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:19px;color:rgba(237,233,226,0.55)">to feel</div>
+      <span style="display:flex;align-items:baseline;font-size:16px;text-transform:uppercase;color:#EDE9E2;opacity:.85;white-space:nowrap">
+        <span style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-weight:400;font-size:1.5em;letter-spacing:0.12em">Sentire</span>
+        <span style="font-family:'Hanken Grotesk',Archivo,sans-serif;font-weight:600;letter-spacing:0.38em;margin-left:0.34em">Studios</span>
+        <sup style="font-family:'Hanken Grotesk',Archivo,sans-serif;font-size:0.42em;letter-spacing:0;margin-left:0.15em;align-self:flex-start">©</sup>
+      </span>
+      <div style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-size:19px;color:rgba(237,233,226,0.55)">to feel</div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:14px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase">
+    <div style="font-family:'Archivo Narrow',Archivo,sans-serif;display:flex;flex-direction:column;gap:14px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase">
       <div style="color:rgba(237,233,226,0.35);margin-bottom:6px">Navigate</div>
       <a href="#" onClick="{{ goWork }}" onMouseEnter="{{ h.work.on }}" onMouseLeave="{{ h.work.off }}" style="display:block;overflow:hidden;height:15px;width:fit-content">
         <span style="display:block;transition:transform .55s cubic-bezier(.16,.84,.24,1);transform:translateY({{ h.work.y }})">
@@ -465,7 +497,7 @@
         </span>
       </a>
     </div>
-    <div style="display:flex;flex-direction:column;gap:14px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase">
+    <div style="font-family:'Archivo Narrow',Archivo,sans-serif;display:flex;flex-direction:column;gap:14px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase">
       <div style="color:rgba(237,233,226,0.35);margin-bottom:6px">Studio</div>
       <a href="mailto:info@sentiremedia.co" onMouseEnter="{{ h.email.on }}" onMouseLeave="{{ h.email.off }}" style="display:block;overflow:hidden;height:15px;width:fit-content">
         <span style="display:block;transition:transform .55s cubic-bezier(.16,.84,.24,1);transform:translateY({{ h.email.y }})">
@@ -534,7 +566,26 @@ const PROJECTS = [
     blurb: "A desert retreat between Joshua Tree and Pioneertown. Calm, connected, and quietly luxurious.",
     body: "For this project, we captured the essence of Hawk & Mesa, a desert retreat nestled between Joshua Tree and Pioneertown. Our goal wasn't just to showcase the property's beauty, but to convey the feeling it creates: calm, connected, and quietly luxurious.",
     credits: [{k:"Client",v:"Hawk & Mesa"},{k:"Deliverables",v:"Brand film + stills"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
-  { num: "07", client: "Encinitas Oceanfront Estate", title: "Coastal Living", tags: "Real Estate", year: "2023", slot: "HERO FRAME — 16:9",
+  { num: "07", client: "One Water ", title: "Untitled", tags: "Brand Film", year: "2026", slot: "HERO FRAME — 16:9",
+    vimeo: "1138745409",
+    cover: "uploads/web-onewater-cover.jpg",
+    blurb: "Add a short line of copy for this project.",
+    body: "Add the full case-study description for this project.",
+    credits: [{k:"Client",v:"—"},{k:"Deliverables",v:"Film"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
+  { num: "08", client: "L'OFFICIEL USA", title: "", tags: "Editorial", year: "2025", slot: "HERO FRAME — 16:9",
+    vimeo: "1043794149",
+    cover: "uploads/web-officiel-cover.jpg",
+    blurb: "",
+    body: "",
+    credits: [{k:"Client",v:"L'OFFICIEL USA"},{k:"Deliverables",v:"Film"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
+  { num: "09", client: "Dior Sauvage", title: "", tags: "Campaign", year: "2025", slot: "HERO FRAME — 16:9",
+    vimeo: "1129771563",
+    cover: "uploads/web-dior-cover.jpg",
+    filmAspect: 9 / 16,
+    blurb: "",
+    body: "",
+    credits: [{k:"Client",v:"Dior"},{k:"Deliverables",v:"Film"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
+  { num: "10", client: "Encinitas Oceanfront Estate", title: "Coastal Living", tags: "Real Estate", year: "2023", slot: "HERO FRAME — 16:9",
     cover: "uploads/web-encinitas-cover.jpg",
     vimeo: "1216289135",
     body: "Modern oceanfront estate in Encinitas, California. Our cinematic video immerses viewers in the coastal lifestyle, showcasing sweeping ocean views, refined interiors, and exclusive amenities that define this exceptional property.",
@@ -554,11 +605,34 @@ const LOGOS = {
   "Dialed Labs": "uploads/logo-dialedlabs.png",
   "Hotel Joaquin": "uploads/idEggxd8n7_1786067711228.png",
   "Kérastase": "uploads/Kerastase_New_logo-wht.png",
+  "L'OFFICIEL USA": "uploads/logo-officiel-white.png",
+  "Dior Sauvage": "uploads/logo-dior-white.png",
   "Hawk & Mesa": "uploads/logo-hawkmesa-white.png"
 };
 
 // stacked/badge logos need a taller box than the wide wordmarks
 const TALL_LOGOS = { "Hawk & Mesa": true };
+
+// intrinsic aspect ratios — used to give every Trusted By mark the SAME cap height
+const LOGO_AR = {
+  "Vitality": 8.70,
+  "Kérastase": 3.54,
+  "Dior Sauvage": 3.57,
+  "L'OFFICIEL USA": 4.35,
+  "Dialed Labs": 2.87,
+  "Hotel Joaquin": 4.55
+};
+
+// Optical scale: very wide wordmarks read LARGER than compact ones at an equal cap height,
+// so each mark gets a factor that balances it by area rather than by height alone.
+const LOGO_SCALE = {
+  "Vitality": 0.58,
+  "L'OFFICIEL USA": 0.9,
+  "Hotel Joaquin": 0.9,
+  "Kérastase": 1,
+  "Dior Sauvage": 1,
+  "Dialed Labs": 1.05
+};
 
 // glyph-only marks: shown alongside the client name, never instead of it
 const MARKS = { "Paradise Ranch Inn": "uploads/logo-paradise-white.png" };
@@ -589,28 +663,61 @@ class Component extends DCLogic {
       }, { rootMargin: "0px 0px -10% 0px", threshold: 0 });
     }
     const limit = window.innerHeight * 0.92;
+    const now = performance.now();
     document.querySelectorAll("[data-reveal]").forEach((el) => {
-      if (el.dataset.shown === "1") return;
-      if (el.dataset.armed !== "1") {
-        el.dataset.armed = "1";
+      // Already revealed: heal it. A re-render can rewrite the style attribute and strip
+      // the animation mid-flight, which used to freeze the element part-faded forever.
+      if (el.dataset.shown === "1") {
+        if (getComputedStyle(el).opacity !== "1") {
+          el.style.animation = "none";
+          el.style.transition = "none";
+          el.style.opacity = "1";
+          el.style.transform = "none";
+        }
+        return;
+      }
+      if (!el.dataset.armedAt) {
+        el.dataset.armedAt = String(now);
         el.style.opacity = "0";
         el.style.willChange = "opacity, transform";
         if (this._io) this._io.observe(el);
       }
+      // Reveal unconditionally. Scroll-gating is not viable here: hosts that never emit
+      // scroll events leave below-fold content hidden permanently. Elements in view go
+      // immediately; the rest follow on a short stagger so the entrance still reads.
       const r = el.getBoundingClientRect();
-      if (r.top < limit && r.bottom > -200) this.reveal(el);
+      const inView = r.top < limit && r.bottom > -200;
+      if (inView || now - Number(el.dataset.armedAt) > 220) this.reveal(el);
     });
+    this.startSweep();
+  }
+
+  // Self-driving sweep: the reveal check must not depend on scroll/resize events,
+  // which some hosts never emit. Stops once everything is shown.
+  startSweep() {
+    if (this._sweep) return;
+    this._sweep = setInterval(() => this.observe(), 220);
   }
 
   reveal(el) {
-    if (el.dataset.shown === "1") return;
+    if (!el || el.dataset.shown === "1") return;
     el.dataset.shown = "1";
     if (this._io) this._io.unobserve(el);
     const i = Number(el.dataset.revealIndex || 0);
     const wave = el.hasAttribute("data-reveal-index");
+    // Original keyframe motion — the healer in observe() restores the end state if a
+    // re-render strips the animation mid-flight, so animations are safe to use again.
     el.style.animation = wave
       ? "logoPop 800ms cubic-bezier(.2,.9,.25,1) " + (i * 130) + "ms forwards"
       : "revealUp 1s cubic-bezier(.2,.8,.2,1) " + (i * 70) + "ms forwards";
+    const total = (wave ? 800 + i * 130 : 1000 + i * 70) + 260;
+    setTimeout(() => {
+      if (!el.isConnected) return;
+      el.style.animation = "none";
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      el.style.willChange = "auto";
+    }, total);
   }
 
   // The logo fade, bar fill and panel exit are CSS keyframes (see helmet) so they survive
@@ -680,6 +787,12 @@ class Component extends DCLogic {
     });
   };
 
+  checkScroll = () => {
+    const y = window.scrollY || document.documentElement.scrollTop || 0;
+    const s = y > 80;
+    if (s !== this.state.scrolled) this.setState({ scrolled: s });
+  };
+
   checkViewport = () => {
     const m = window.innerWidth <= 820;
     if (m !== this.state.isMobile) this.setState({ isMobile: m, menuOpen: false });
@@ -696,6 +809,7 @@ class Component extends DCLogic {
       this.syncPill();
       this.syncReel();
       this.checkViewport();
+      this.checkScroll();
     });
   };
 
@@ -749,17 +863,22 @@ class Component extends DCLogic {
       hasLogo: !!LOGOS[p.client],
       noLogo: !LOGOS[p.client],
       logoCss: LOGOS[p.client] ? 'url("' + LOGOS[p.client] + '")' : "none",
-      logoTileW: TALL_LOGOS[p.client] ? "120px" : "190px",
-      logoTileH: TALL_LOGOS[p.client] ? "104px" : "46px",
-      logoBandW: TALL_LOGOS[p.client] ? "150px" : "250px",
-      logoBandH: TALL_LOGOS[p.client] ? "128px" : "56px",
+      logoTileW: TALL_LOGOS[p.client] ? "120px" : Math.round(42 * (LOGO_AR[p.client] || 4)) + "px",
+      logoTileH: TALL_LOGOS[p.client] ? "104px" : "42px",
+      logoBandW: TALL_LOGOS[p.client] ? "150px" : Math.round(50 * (LOGO_AR[p.client] || 4)) + "px",
+      logoBandH: TALL_LOGOS[p.client] ? "128px" : "50px",
       hasMark: !!MARKS[p.client],
       markCss: MARKS[p.client] ? 'url("' + MARKS[p.client] + '")' : "none",
       mounted: !!p.vimeo && (this.state.workHover === i || this.state.workWarm === i),
       filmOpacity: this.state.workHover === i && this.state.workReady === i ? "1" : "0",
       tileEmbed: p.vimeo ? "https://player.vimeo.com/video/" + p.vimeo + "?background=1&autoplay=1&loop=1&muted=1&autopause=0" : "",
+      // vertical/square source films letterbox inside a 16:9 tile — overscale to crop them
+      filmFit: p.filmAspect ? "translate(-50%,-50%) scale(" + ((16 / 9) / p.filmAspect).toFixed(3) + ")" : "translate(-50%,-50%)",
       tileCoverCss: p.cover ? 'url("' + p.cover + '")' : "none",
-      tileDim: this.state.workHover === i ? "0.4" : "1",
+      hasCover: !!p.cover,
+      hasTileTitle: !(!p.title || /^(add |untitled$)/i.test(String(p.title).trim())),
+      blurbSafe: (!p.blurb || /^add /i.test(String(p.blurb).trim())) ? "" : p.blurb,
+      tileDim: this.state.workHover === i ? "0.4" : (p.cover ? "1" : "0.25"),
       scale: this.state.workHover === i ? "scale(1.04)" : "scale(1)",
       on: () => {
         clearTimeout(this._warmT);
@@ -775,7 +894,14 @@ class Component extends DCLogic {
         this._warmT = setTimeout(() => this.setState({ workWarm: null }), 1200);
       }
     }));
-    const cur = projects[this.state.index] || projects[0];
+    // Author-facing stubs must never reach the page: blank them and let sc-if drop the node.
+    const stub = (v) => !v || /^(add |untitled$|—$)/i.test(String(v).trim());
+    const rawCur = projects[this.state.index] || projects[0];
+    const cur = Object.assign({}, rawCur, {
+      title: stub(rawCur.title) ? "" : rawCur.title,
+      body: stub(rawCur.body) ? "" : rawCur.body,
+      credits: (rawCur.credits || []).filter((c) => !stub(c.v))
+    });
     const nx = (this.state.index + 1) % projects.length;
     const q = QUOTES[this.state.quote];
     return {
@@ -788,7 +914,10 @@ class Component extends DCLogic {
       goHome: this.go("home"), goWork: this.go("work"), goAbout: this.go("about"),
       goServices: this.go("services"), goContact: this.go("contact"),
       projects: projects,
-      featured: projects.slice(0, 4).map((p, i) => Object.assign({}, p, {
+      featured: ["Vitality","L'OFFICIEL USA","Dialed Labs","Hotel Joaquin"]
+        .map((n) => projects.find((p) => p.client === n))
+        .filter(Boolean)
+        .map((p, i) => Object.assign({}, p, {
         blurb: p.blurb,
         on: () => this.setState({ workHover: i }),
         off: () => this.setState({ workHover: null }),
@@ -805,6 +934,8 @@ class Component extends DCLogic {
       isStacked: layout !== "Two-column grid",
       currentFrames: (cur.frames || []).map((n, i) => ({ key: n, css: 'url("uploads/sm-' + n + '.jpg")', label: "FRAME " + String(i + 1).padStart(2, "0") })),
       current: cur,
+      hasCaseTitle: !!cur.title,
+      hasCaseBody: !!cur.body,
       hasVideo: !!cur.vimeo,
       noVideo: !cur.vimeo,
       embedUrl: cur.vimeo ? "https://player.vimeo.com/video/" + cur.vimeo + "?title=0&byline=0&portrait=0&dnt=1" : "",
@@ -815,29 +946,26 @@ class Component extends DCLogic {
       showTrustedBy: this.props.showTrustedBy !== false,
       showGear: this.props.showGear !== false,
       // doubled so the -50% keyframe lands exactly on the copy's start — seamless loop
-      marqueeClients: ["Vitality","Kérastase","Dialed Labs","Hotel Joaquin","Paradise Ranch Inn","Vitality","Kérastase","Dialed Labs","Hotel Joaquin","Paradise Ranch Inn"].map((n, i) => ({
-        key: i,
-        name: n,
-        hasLogo: n === "Vitality" || n === "Dialed Labs" || n === "Hotel Joaquin" || n === "Kérastase",
-        noLogo: !(n === "Vitality" || n === "Dialed Labs" || n === "Hotel Joaquin" || n === "Kérastase"),
-        hasMark: n === "Paradise Ranch Inn",
-        markCss: n === "Paradise Ranch Inn" ? 'url("uploads/logo-paradise-white.png")' : "none",
-        logoCss: n === "Vitality" ? 'url("uploads/logo-vitality-white.png")'
-          : n === "Dialed Labs" ? 'url("uploads/logo-dialedlabs.png")'
-          : n === "Hotel Joaquin" ? 'url("uploads/idEggxd8n7_1786067711228.png")'
-          : n === "Kérastase" ? 'url("uploads/Kerastase_New_logo-wht.png")' : "none"
+      // both rows resolve logos from the shared LOGOS/MARKS maps
+      marqueeClients: ["Vitality","Kérastase","Dior Sauvage","L'OFFICIEL USA","Dialed Labs","Hotel Joaquin","Paradise Ranch Inn","Vitality","Kérastase","Dior Sauvage","L'OFFICIEL USA","Dialed Labs","Hotel Joaquin","Paradise Ranch Inn"].map((n, i) => ({
+        key: i, name: n,
+        hasLogo: !!LOGOS[n], noLogo: !LOGOS[n],
+        hasMark: !!MARKS[n],
+        markCss: MARKS[n] ? 'url("' + MARKS[n] + '")' : "none",
+        logoCss: LOGOS[n] ? 'url("' + LOGOS[n] + '")' : "none",
+        logoW: (LOGO_AR[n] ? Math.round(28 * LOGO_AR[n]) : 112) + "px",
+        logoH: Math.round(28 * (LOGO_SCALE[n] || 1)) + "px",
+        logoBoxW: Math.round(28 * (LOGO_SCALE[n] || 1) * (LOGO_AR[n] || 4)) + "px"
       })),
-      clients: ["Vitality","Kérastase","Dialed Labs","Hotel Joaquin","Paradise Ranch Inn"].map((n, i) => ({
-        key: i,
-        name: n,
-        hasLogo: n === "Vitality" || n === "Dialed Labs" || n === "Hotel Joaquin" || n === "Kérastase",
-        noLogo: !(n === "Vitality" || n === "Dialed Labs" || n === "Hotel Joaquin" || n === "Kérastase"),
-        hasMark: n === "Paradise Ranch Inn",
-        markCss: n === "Paradise Ranch Inn" ? 'url("uploads/logo-paradise-white.png")' : "none",
-        logoCss: n === "Vitality" ? 'url("uploads/logo-vitality-white.png")'
-          : n === "Dialed Labs" ? 'url("uploads/logo-dialedlabs.png")'
-          : n === "Hotel Joaquin" ? 'url("uploads/idEggxd8n7_1786067711228.png")'
-          : n === "Kérastase" ? 'url("uploads/Kerastase_New_logo-wht.png")' : "none"
+      clients: ["Vitality","Kérastase","Dior Sauvage","L'OFFICIEL USA","Dialed Labs","Hotel Joaquin","Paradise Ranch Inn"].map((n, i) => ({
+        key: i, name: n,
+        hasLogo: !!LOGOS[n], noLogo: !LOGOS[n],
+        hasMark: !!MARKS[n],
+        markCss: MARKS[n] ? 'url("' + MARKS[n] + '")' : "none",
+        logoCss: LOGOS[n] ? 'url("' + LOGOS[n] + '")' : "none",
+        logoW: (LOGO_AR[n] ? Math.round(28 * LOGO_AR[n]) : 112) + "px",
+        logoH: Math.round(28 * (LOGO_SCALE[n] || 1)) + "px",
+        logoBoxW: Math.round(28 * (LOGO_SCALE[n] || 1) * (LOGO_AR[n] || 4)) + "px"
       })),
       pillars: [
         { num: "01", title: "Envision", line: "Bold ideas, sharp strategy.", items: [{label:"Concept development & ideation"},{label:"Creative direction"},{label:"Content strategy"}] },
@@ -909,12 +1037,19 @@ class Component extends DCLogic {
           })
           .catch(openMail);                            // network/service failure still reaches you
       },
+      headerBg: this.state.scrolled ? "rgba(11,11,10,0.92)" : "linear-gradient(#0B0B0A99,#0B0B0A00)",
+      headerBlur: this.state.scrolled ? "blur(14px)" : "none",
       showLoader: !(this.state.loaderDone || Component._loaderDone),
       wmOn: () => this.setState({ wmHover: true }),
       wmOff: () => this.setState({ wmHover: false }),
       wordmark: "SENTIRE STUDIOS".split("").map((ch, i) => ({
         key: i,
         ch: ch === " " ? "\u00A0" : ch,
+        // "SENTIRE" in the display face, "STUDIOS" stays on the grotesque
+        font: i < 7 ? "'Vintage Rhyme','Instrument Serif',Georgia,serif" : "'Hanken Grotesk',Archivo,sans-serif",
+        weight: i < 7 ? "400" : "600",
+        track: i < 7 ? "0.12em" : "0.4em",
+        size: i < 7 ? "1.5em" : "1em",
         width: ch === " " ? "0.34em" : "auto",
         delay: (i * 34) + "ms",
         transform: this.state.wmHover ? "translateY(-0.3em) rotateX(360deg) scale(1.08)" : "none",
