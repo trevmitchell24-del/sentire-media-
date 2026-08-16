@@ -70,11 +70,7 @@
 
   <sc-if value="{{ showLoader }}" hint-placeholder-val="{{ true }}">
   <div data-loader="1" style="position:fixed;inset:0;z-index:900;background:#0B0B0A;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;pointer-events:none">
-    <div data-loader-logo="1" style="display:flex;align-items:baseline;font-size:clamp(17px,4.4vw,26px);text-transform:uppercase;color:#EDE9E2;white-space:nowrap">
-      <span style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-weight:400;font-size:1.5em;letter-spacing:0.12em">Sentire</span>
-      <span style="font-family:'Hanken Grotesk',Archivo,sans-serif;font-weight:600;letter-spacing:0.42em;margin-left:0.34em">Studios</span>
-      <sup style="font-family:'Hanken Grotesk',Archivo,sans-serif;font-size:0.42em;letter-spacing:0;margin-left:0.15em;align-self:flex-start">©</sup>
-    </div>
+    <img data-loader-logo="1" src="uploads/logo-sentire-studios-white.png" alt="Sentire Studios" style="display:block;width:min(320px,62vw);height:auto">
     <div style="position:relative;width:min(300px,58vw);height:1px;background:rgba(237,233,226,0.16);overflow:hidden">
       <div data-loader-bar="1" style="position:absolute;inset:0;background:#B79A72;transform:scaleX(0);transform-origin:left"></div>
     </div>
@@ -84,12 +80,7 @@
 
   <header style="position:fixed;top:14px;left:14px;right:14px;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:clamp(12px,3vw,20px) clamp(16px,4vw,34px);border-radius:28px;background:{{ headerBg }};backdrop-filter:{{ headerBlur }};transition:background .4s ease,backdrop-filter .4s ease">
     <a href="#" onClick="{{ goHome }}" onMouseEnter="{{ wmOn }}" onMouseLeave="{{ wmOff }}" style="display:flex;align-items:center;gap:14px;perspective:520px">
-      <span style="display:flex;align-items:baseline;font-family:'Hanken Grotesk',Archivo,sans-serif;font-weight:600;font-size:clamp(13px,3.2vw,17px);letter-spacing:0.4em;text-transform:uppercase;color:#EDE9E2;opacity:.95;white-space:nowrap">
-        <sc-for list="{{ wordmark }}" as="l" hint-placeholder-count="15">
-          <span style="display:inline-block;width:{{ l.width }};font-family:{{ l.font }};font-weight:{{ l.weight }};font-size:{{ l.size }};letter-spacing:{{ l.track }};transform-style:preserve-3d;transition:transform 620ms cubic-bezier(.2,.9,.25,1),color 620ms ease;transition-delay:{{ l.delay }};transform:{{ l.transform }};color:{{ l.color }}">{{ l.ch }}</span>
-        </sc-for>
-        <sup style="font-size:0.42em;line-height:1;letter-spacing:0;margin-left:0.15em;display:block;align-self:flex-start;transition:transform 700ms cubic-bezier(.2,.9,.25,1) 520ms,color 620ms ease 520ms;transform:{{ wmMarkTransform }};color:{{ wmMarkColor }}">©</sup>
-      </span>
+      <img src="uploads/logo-sentire-studios-white.png" alt="Sentire Studios" style="display:block;height:clamp(17px,3.6vw,23px);width:auto;opacity:{{ wmOpacity }};transform:{{ wmShift }};transition:opacity 500ms ease,transform 620ms cubic-bezier(.2,.9,.25,1)">
     </a>
     <button onClick="{{ toggleMenu }}" aria-label="Menu" style="display:{{ burgerDisplay }};flex-direction:column;justify-content:center;gap:6px;width:48px;height:48px;padding:0;border:0;background:transparent;cursor:pointer">
       <span style="display:block;width:26px;height:1px;background:#EDE9E2;transition:transform .4s cubic-bezier(.2,.8,.2,1);transform:{{ burgerTop }}"></span>
@@ -135,7 +126,7 @@
     </section>
 
     <section style="padding:clamp(96px,15vw,180px) clamp(20px,5vw,40px) clamp(96px,15vw,170px);display:flex;flex-direction:column;align-items:flex-start">
-      <div data-reveal="1" style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(38px,7vw,104px);letter-spacing:0.04em;text-transform:uppercase;color:#EDE9E2;line-height:1;white-space:nowrap">Sentire</div>
+      <div data-reveal="1" style="font-family: 'Vintage Rhyme','Instrument Serif',Georgia,serif; font-weight: 400; font-size: 47px; letter-spacing: -0.08em; text-transform: uppercase; color: #EDE9E2; line-height: 1; white-space: nowrap">Sentire</div>
       <div data-reveal="1" data-reveal-index="1" style="margin-top:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:8px;font-family:'Archivo Narrow',Archivo,sans-serif;font-size:13px;letter-spacing:0.14em;color:rgba(237,233,226,0.5)">
         <div>[verb]</div>
         <div>sen·ti·re</div>
@@ -463,11 +454,7 @@
 
   <footer style="padding:clamp(52px,8vw,70px) clamp(20px,5vw,40px) 46px;border-top:1px solid rgba(237,233,226,0.09);display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(34px,5vw,50px);align-items:start">
     <div style="display:flex;flex-direction:column;gap:22px">
-      <span style="display:flex;align-items:baseline;font-size:16px;text-transform:uppercase;color:#EDE9E2;opacity:.85;white-space:nowrap">
-        <span style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-weight:400;font-size:1.5em;letter-spacing:0.12em">Sentire</span>
-        <span style="font-family:'Hanken Grotesk',Archivo,sans-serif;font-weight:600;letter-spacing:0.38em;margin-left:0.34em">Studios</span>
-        <sup style="font-family:'Hanken Grotesk',Archivo,sans-serif;font-size:0.42em;letter-spacing:0;margin-left:0.15em;align-self:flex-start">©</sup>
-      </span>
+      <img src="uploads/logo-sentire-studios-white.png" alt="Sentire Studios" style="display:block;width:190px;height:auto;opacity:.85">
       <div style="font-family:'Vintage Rhyme','Instrument Serif',Georgia,serif;font-size:19px;color:rgba(237,233,226,0.55)">to feel</div>
     </div>
     <div style="font-family:'Archivo Narrow',Archivo,sans-serif;display:flex;flex-direction:column;gap:14px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase">
@@ -575,9 +562,10 @@ const PROJECTS = [
   { num: "08", client: "L'OFFICIEL USA", title: "", tags: "Editorial", year: "2025", slot: "HERO FRAME — 16:9",
     vimeo: "1043794149",
     cover: "uploads/web-officiel-cover.jpg",
-    blurb: "",
-    body: "",
-    credits: [{k:"Client",v:"L'OFFICIEL USA"},{k:"Deliverables",v:"Film"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
+    title: "In Bloom",
+    blurb: "A fashion film for L'OFFICIEL USA starring Bella Thorne.",
+    body: "A fashion film for L'OFFICIEL USA starring Bella Thorne, shot on the beach across a single afternoon. The piece leans on stillness rather than spectacle: long lenses, minimal movement, and salt wind doing most of the work. Couture leads and the camera follows, letting light and texture carry the story where dialogue would only get in the way.",
+    credits: [{k:"Client",v:"L'OFFICIEL USA"},{k:"Talent",v:"Bella Thorne"},{k:"Deliverables",v:"Fashion film"},{k:"Shoot",v:"1 day"},{k:"Format",v:"FX3"}] },
   { num: "09", client: "Dior Sauvage", title: "", tags: "Campaign", year: "2025", slot: "HERO FRAME — 16:9",
     vimeo: "1129771563",
     cover: "uploads/web-dior-cover.jpg",
@@ -863,10 +851,10 @@ class Component extends DCLogic {
       hasLogo: !!LOGOS[p.client],
       noLogo: !LOGOS[p.client],
       logoCss: LOGOS[p.client] ? 'url("' + LOGOS[p.client] + '")' : "none",
-      logoTileW: TALL_LOGOS[p.client] ? "120px" : Math.round(42 * (LOGO_AR[p.client] || 4)) + "px",
-      logoTileH: TALL_LOGOS[p.client] ? "104px" : "42px",
-      logoBandW: TALL_LOGOS[p.client] ? "150px" : Math.round(50 * (LOGO_AR[p.client] || 4)) + "px",
-      logoBandH: TALL_LOGOS[p.client] ? "128px" : "50px",
+      logoTileW: TALL_LOGOS[p.client] ? "120px" : Math.round(42 * (LOGO_SCALE[p.client] || 1) * (LOGO_AR[p.client] || 4)) + "px",
+      logoTileH: TALL_LOGOS[p.client] ? "104px" : Math.round(42 * (LOGO_SCALE[p.client] || 1)) + "px",
+      logoBandW: TALL_LOGOS[p.client] ? "150px" : Math.round(50 * (LOGO_SCALE[p.client] || 1) * (LOGO_AR[p.client] || 4)) + "px",
+      logoBandH: TALL_LOGOS[p.client] ? "128px" : Math.round(50 * (LOGO_SCALE[p.client] || 1)) + "px",
       hasMark: !!MARKS[p.client],
       markCss: MARKS[p.client] ? 'url("' + MARKS[p.client] + '")' : "none",
       mounted: !!p.vimeo && (this.state.workHover === i || this.state.workWarm === i),
@@ -1042,14 +1030,16 @@ class Component extends DCLogic {
       showLoader: !(this.state.loaderDone || Component._loaderDone),
       wmOn: () => this.setState({ wmHover: true }),
       wmOff: () => this.setState({ wmHover: false }),
+      wmOpacity: this.state.wmHover ? "0.75" : "0.95",
+      wmShift: this.state.wmHover ? "translateY(-2px)" : "none",
       wordmark: "SENTIRE STUDIOS".split("").map((ch, i) => ({
         key: i,
         ch: ch === " " ? "\u00A0" : ch,
         // "SENTIRE" in the display face, "STUDIOS" stays on the grotesque
         font: i < 7 ? "'Vintage Rhyme','Instrument Serif',Georgia,serif" : "'Hanken Grotesk',Archivo,sans-serif",
-        weight: i < 7 ? "400" : "600",
-        track: i < 7 ? "0.12em" : "0.4em",
-        size: i < 7 ? "1.5em" : "1em",
+        weight: "400",
+        track: i < 7 ? "-0.055em" : "0.09em",
+        size: "1.5em",
         width: ch === " " ? "0.34em" : "auto",
         delay: (i * 34) + "ms",
         transform: this.state.wmHover ? "translateY(-0.3em) rotateX(360deg) scale(1.08)" : "none",
